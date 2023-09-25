@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class DocumentDeliveryDto {
+public class OutboundDeliveryDto {
 
     @JsonProperty("d")
     private Document document;

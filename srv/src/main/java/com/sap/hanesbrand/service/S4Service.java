@@ -16,7 +16,7 @@ public class S4Service {
     private static final String GET_HEADER_BY_ID_TEMPLATE = "/A_OutbDeliveryHeader({0})";
     private final S4HttpDestinationClientBasicAuth clientBasicAuth;
 
-    public DocumentDeliveryDto getOutboundDeliveryById(String id){
-       return clientBasicAuth.get(MessageFormat.format(GET_HEADER_BY_ID_TEMPLATE, id), DocumentDeliveryDto.class);
+    public OutboundDeliveryDto getOutboundDeliveryById(String id){
+       return clientBasicAuth.get(MessageFormat.format(GET_HEADER_BY_ID_TEMPLATE, id), OutboundDeliveryDto.class);
     }
 }

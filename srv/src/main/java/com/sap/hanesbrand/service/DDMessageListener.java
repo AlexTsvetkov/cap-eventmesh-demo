@@ -4,8 +4,7 @@ import cds.gen.documentdeliveryservice.OutboundDeliveryEvent;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.sap.hanesbrand.client.dto.DDEvent;
-import com.sap.hanesbrand.client.dto.DocumentDeliveryDto;
+import com.sap.hanesbrand.client.dto.OutboundDeliveryDto;
 import com.sap.hanesbrand.dao.OutboundDeliveryDao;
 import com.sap.hanesbrand.mapper.OutboundDeliveryMapper;
 import lombok.AllArgsConstructor;
@@ -42,14 +41,13 @@ public class DDMessageListener implements MessageListener {
                 messageText = new String(data);
             }
 
-            DDEvent event = objectMapper.readValue(messageText, DDEvent.class);
+            OutboundDeliveryEvent event = objectMapper.readValue(messageText, OutboundDeliveryEvent.class);
             log.info("--Event received: " + event);
             //TODO Check logic for get by Id in BTP
             //Received from s4
-            DocumentDeliveryDto outboundDeliveryDto = s4Service.getOutboundDeliveryById(event.getDeliveryDocument());
+            OutboundDeliveryDto outboundDeliveryDto = s4Service.getOutboundDeliveryById(event.getDeliveryDocument());
             OutboundDeliveryEvent outboundDeliveryEvent = documentDeliveryMapper.s4DocumentToOutboundDelivery(outboundDeliveryDto.getDocument());
             outboundDeliveryRepository.saveOutboundDelivery(outboundDeliveryEvent);
-
 
         } catch (JMSException | JsonProcessingException e) {
             log.error("--Cannot receive event: " + e.getMessage());

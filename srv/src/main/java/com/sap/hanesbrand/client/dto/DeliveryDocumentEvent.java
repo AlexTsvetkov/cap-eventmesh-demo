@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class DDEvent {
+public class DeliveryDocumentEvent {
 
     @JsonProperty("DeliveryDocument")
     private String DeliveryDocument;

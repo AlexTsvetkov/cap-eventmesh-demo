@@ -2,7 +2,7 @@ package com.sap.hanesbrand.controller;
 
 
 import cds.gen.documentdeliveryservice.OutboundDeliveryEvent;
-import com.sap.hanesbrand.client.dto.DocumentDeliveryDto;
+import com.sap.hanesbrand.client.dto.OutboundDeliveryDto;
 import com.sap.hanesbrand.dao.OutboundDeliveryDao;
 import com.sap.hanesbrand.mapper.OutboundDeliveryMapper;
 import lombok.RequiredArgsConstructor;
@@ -23,8 +23,8 @@ public class OutboundDeliveryController {
 
     //Not needed at all, it's for local testing dto/mapper
     @PostMapping("/webhook/save-document")
-    public void createNegotiationProjectHeader(@RequestBody DocumentDeliveryDto documentDeliveryDto) {
-        DocumentDeliveryDto.Document document = documentDeliveryDto.getDocument();
+    public void saveDocument(@RequestBody OutboundDeliveryDto outboundDeliveryDto) {
+        OutboundDeliveryDto.Document document = outboundDeliveryDto.getDocument();
         OutboundDeliveryEvent outboundDeliveryEvent = documentDeliveryMapper.s4DocumentToOutboundDelivery(document);
         outboundDeliveryRepository.saveOutboundDelivery(outboundDeliveryEvent);
     }
