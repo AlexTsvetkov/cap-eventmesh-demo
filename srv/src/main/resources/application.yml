@@ -1,0 +1,22 @@
+spring:
+  config:
+    activate:
+      on-profile: default
+  destination:
+    name:
+      s4Outbound: "API_OUTBOUND_DELIVERY"
+
+  datasource:
+    url: "jdbc:sqlite:/Users/adubok/IdeaProjects/cap-eventmesh-demo/db.sqlite"
+    #url: "jdbc:sqlite:file::memory:?cache=shared"
+    driver-class-name: org.sqlite.JDBC
+    hikari:
+      maximum-pool-size: 1
+  sql:
+    init:
+      mode: always
+
+
+logging:
+  level:
+    ROOT: INFO

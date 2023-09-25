@@ -1,0 +1,8 @@
+{
+  "name": "renegotiation-srv",
+  "version": "1.0.0",
+  "dependencies": {
+    "@cap-js/sqlite": "^1.2.1",
+    "@sap/cds-dk": "^7"
+  }
+}
