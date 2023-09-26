@@ -3,5 +3,5 @@ Demo integration of CAP and EventMesh
 
 #Build CDS
 
-1. cds deploy
+1. cds deploy --to sqlite
 2. cds watch
