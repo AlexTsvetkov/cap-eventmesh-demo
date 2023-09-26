@@ -30,9 +30,9 @@ modules:
       - name: cap-eventmesh-demo-auth
       - name: cap-eventmesh-demo-db
 
-  - name: cap-eventmesh-demo
+  - name: cap-eventmesh-demo-approuter
     type: approuter.nodejs
-    path: app/router
+    path: app/
     parameters:
       keep-existing-routes: true
       disk-quota: 256M
@@ -49,6 +49,7 @@ modules:
       - name: app-api
         properties:
           url: ${default-url}
+          domain: ${domain}
 
   - name: cap-eventmesh-demo-db-deployer
     type: hdb
@@ -70,8 +71,14 @@ resources:
       service-plan: application
       path: ./xs-security.json
       config:
-        xsappname: cap-eventmesh-demo-${org}-${space}
+        xsappname: cap-eventmesh-demo-${space}
         tenant-mode: dedicated
+        oauth2-configuration:
+          redirect-uris:
+            - https://*.~{app-api/domain}/**
+    requires:
+      - name: app-api
+
   - name: cap-eventmesh-demo-db
     type: com.sap.xs.hdi-container
     parameters:

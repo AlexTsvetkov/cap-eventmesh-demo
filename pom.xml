@@ -14,7 +14,7 @@
     <properties>
         <!-- OUR VERSION -->
         <spring.boot.version>2.6.14</spring.boot.version>
-        <jdk.version>11</jdk.version>
+        <jdk.version>17</jdk.version>
         <revision>1.0.0-SNAPSHOT</revision>
         <cds.services.version>2.2.0</cds.services.version>
         <org.mapstruct.version>1.4.1.Final</org.mapstruct.version>
@@ -40,6 +40,10 @@
             <version>2.2.0</version>
         </dependency>
     </dependencies>
+
+    <modules>
+        <module>srv</module>
+    </modules>
 
     <build>
         <plugins>
