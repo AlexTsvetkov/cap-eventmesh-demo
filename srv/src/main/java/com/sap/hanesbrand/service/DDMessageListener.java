@@ -1,29 +1,28 @@
 package com.sap.hanesbrand.service;
 
 import cds.gen.documentdeliveryservice.OutboundDeliveryEvent;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.sap.hanesbrand.client.dto.DeliveryDocumentEvent;
 import com.sap.hanesbrand.client.dto.OutboundDeliveryDto;
 import com.sap.hanesbrand.dao.OutboundDeliveryDao;
 import com.sap.hanesbrand.mapper.OutboundDeliveryMapper;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import javax.jms.BytesMessage;
-import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
 
 @Slf4j
-@AllArgsConstructor
-@Service
+@RequiredArgsConstructor
+@Component
 public class DDMessageListener implements MessageListener {
 
     private final S4Service s4Service;
-    private final OutboundDeliveryMapper documentDeliveryMapper;
+    private final OutboundDeliveryMapper mapper;
     private final OutboundDeliveryDao outboundDeliveryRepository;
 
     @Override
@@ -41,17 +40,14 @@ public class DDMessageListener implements MessageListener {
                 messageText = new String(data);
             }
 
-            OutboundDeliveryEvent event = objectMapper.readValue(messageText, OutboundDeliveryEvent.class);
-            log.info("--Event received: " + event);
-            //TODO Check logic for get by Id in BTP
-            //Received from s4
+            DeliveryDocumentEvent event = objectMapper.readValue(messageText, DeliveryDocumentEvent.class);
+            log.info("DDMessageListener: --Event received: " + event);
             OutboundDeliveryDto outboundDeliveryDto = s4Service.getOutboundDeliveryById(event.getDeliveryDocument());
-            OutboundDeliveryEvent outboundDeliveryEvent = documentDeliveryMapper.s4DocumentToOutboundDelivery(outboundDeliveryDto.getDocument());
-            outboundDeliveryRepository.saveOutboundDelivery(outboundDeliveryEvent);
-
-        } catch (JMSException | JsonProcessingException e) {
-            log.error("--Cannot receive event: " + e.getMessage());
+            log.info("DDMessageListener: outboundDeliveryDto =" + outboundDeliveryDto.toString());
+            OutboundDeliveryEvent outboundDelivery = mapper.s4DocumentToOutboundDelivery(outboundDeliveryDto.getDocument());
+            outboundDeliveryRepository.saveOutboundDelivery(outboundDelivery);
+        } catch (Exception e) {
+            log.error("DDMessageListener: --Cannot receive event: " + e.getMessage());
         }
-
     }
 }

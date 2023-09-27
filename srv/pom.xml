@@ -96,6 +96,12 @@
             <artifactId>cds-feature-xsuaa</artifactId>
             <version>${cds.services.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.sap.cloud.security.xsuaa</groupId>
+            <artifactId>token-client</artifactId>
+            <version>${sap.cloud.security.version}</version>
+        </dependency>
+
     </dependencies>
 
     <build>

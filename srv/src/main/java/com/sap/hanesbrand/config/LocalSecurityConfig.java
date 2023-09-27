@@ -24,5 +24,4 @@ public class LocalSecurityConfig {
                 .authorizeHttpRequests(r -> r.anyRequest().permitAll())
                 .build();
     }
-
 }
