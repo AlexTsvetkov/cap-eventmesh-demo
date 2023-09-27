@@ -22,3 +22,19 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
+.idea/
+*.iml
+srv/src/main/resources/edmx/
+srv/src/gen/
+srv/target/
+.flattened-pom.xml
+db.sqlite
+schema.sql
+package-lock.json
+*.mtar
+*./node_modules/
+app/node_modules/
+
+db/src/gen
+db/node_modules/
