@@ -7,13 +7,27 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Map;
+
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class DeliveryDocumentEvent {
 
-    @JsonProperty("DeliveryDocument")
-    private String DeliveryDocument;
+    public final static String OUTBOUND_DELIVERY = "OutboundDelivery";
+
+    @JsonProperty("type")
+    String type;
+
+    @JsonProperty("source")
+    String source;
+
+    @JsonProperty("id")
+    String createdID;
+
+    @JsonProperty("time")
+    String createdTime;
+
+    @JsonProperty("data")
+    Map<String, String> data;
 
 }
