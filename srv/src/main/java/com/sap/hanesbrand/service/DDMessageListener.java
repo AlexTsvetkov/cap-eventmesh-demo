@@ -1,6 +1,7 @@
 package com.sap.hanesbrand.service;
 
 import cds.gen.documentdeliveryservice.OutboundDeliveryEvent;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.sap.hanesbrand.client.dto.DeliveryDocumentEvent;
@@ -16,6 +17,8 @@ import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
 
+import static com.sap.hanesbrand.client.dto.DeliveryDocumentEvent.OUTBOUND_DELIVERY;
+
 @Slf4j
 @RequiredArgsConstructor
 @Component
@@ -29,6 +32,7 @@ public class DDMessageListener implements MessageListener {
     public void onMessage(Message message) {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         String messageText = null;
         try {
             if (message instanceof TextMessage) {
@@ -41,8 +45,9 @@ public class DDMessageListener implements MessageListener {
             }
 
             DeliveryDocumentEvent event = objectMapper.readValue(messageText, DeliveryDocumentEvent.class);
+            String deliveryDocument = event.getData().get(OUTBOUND_DELIVERY);
             log.info("DDMessageListener: --Event received: " + event);
-            OutboundDeliveryDto outboundDeliveryDto = s4Service.getOutboundDeliveryById(event.getDeliveryDocument());
+            OutboundDeliveryDto outboundDeliveryDto = s4Service.getOutboundDeliveryById(deliveryDocument);
             log.info("DDMessageListener: outboundDeliveryDto =" + outboundDeliveryDto.toString());
             OutboundDeliveryEvent outboundDelivery = mapper.s4DocumentToOutboundDelivery(outboundDeliveryDto.getDocument());
             outboundDeliveryRepository.saveOutboundDelivery(outboundDelivery);
