@@ -25,7 +25,6 @@ public class OutBoundDeliveryDaoImpl implements OutboundDeliveryDao {
 
     @Override
     public OutboundDeliveryEvent selectOutboundDeliveryById(String id) {
-        log.info("selectOutboundDeliveryById {} ", id);
         CqnSelect selectQuery = Select.from(SOURCE_TYPE)
                 .where(i -> i.get(OutboundDeliveryEvent.DELIVERY_DOCUMENT).eq(id));
         return persistenceService.run(selectQuery).single(OutboundDeliveryEvent.class);
@@ -34,7 +33,7 @@ public class OutBoundDeliveryDaoImpl implements OutboundDeliveryDao {
 
     @Override
     public void saveOutboundDelivery(OutboundDeliveryEvent outboundDeliveryEvent) {
-        log.info("saveOutboundDelivery {} ", outboundDeliveryEvent);
+        log.info("OutBoundDeliveryDaoImpl: saveOutboundDelivery {} ", outboundDeliveryEvent);
         outboundDeliveryEvent.setStatus(PKMS);
         CqnUpsert upsert = Upsert.into(SOURCE_TYPE).entry(outboundDeliveryEvent);
         persistenceService.run(upsert);
@@ -42,7 +41,7 @@ public class OutBoundDeliveryDaoImpl implements OutboundDeliveryDao {
     }
 
     public void updateStatus(String deliveryId, String status) {
-        log.info("updateStatus for {}", deliveryId);
+        log.info("OutBoundDeliveryDaoImpl: updateStatus for {}", deliveryId);
         OutboundDeliveryEvent outboundDeliveryEvent = OutboundDeliveryEvent.create();
         outboundDeliveryEvent.setStatus(status);
         CqnUpdate update = Update.entity(SOURCE_TYPE).data(outboundDeliveryEvent).byId(deliveryId);

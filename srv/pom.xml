@@ -6,6 +6,13 @@
     <groupId>com.sap.hanesbrand</groupId>
     <artifactId>cap-eventmesh-demo</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <name>cap-eventmesh</name>
+
+    <parent>
+        <artifactId>cap-eventmesh-demo-parent</artifactId>
+        <groupId>com.sap.hanesbrand</groupId>
+        <version>${revision}</version>
+    </parent>
 
     <properties>
         <lombok.version>1.18.22</lombok.version>
@@ -14,11 +21,7 @@
         <sap.cloud.security.version>3.1.3</sap.cloud.security.version>
         <token-client.version>3.1.3</token-client.version>
     </properties>
-    <parent>
-        <artifactId>cap-eventmesh-demo-parent</artifactId>
-        <groupId>com.sap.hanesbrand</groupId>
-        <version>${revision}</version>
-    </parent>
+
 
     <dependencies>
         <dependency>
@@ -93,15 +96,43 @@
             <artifactId>cds-feature-xsuaa</artifactId>
             <version>${cds.services.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.sap.cloud.security.xsuaa</groupId>
+            <artifactId>token-client</artifactId>
+            <version>${sap.cloud.security.version}</version>
+        </dependency>
+
     </dependencies>
+
     <build>
         <plugins>
+            <!-- SPRING BOOT PLUGIN -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring.boot.version}</version>
+                <configuration>
+                    <skip>false</skip>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>repackage</id>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                        <configuration>
+                            <classifier>exec</classifier>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>11</source>
-                    <target>11</target>
+                    <source>17</source>
+                    <target>17</target>
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.mapstruct</groupId>
