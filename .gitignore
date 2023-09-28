@@ -38,3 +38,4 @@ app/node_modules/
 
 db/src/gen
 db/node_modules/
+/node_modules/
