@@ -1,8 +1,8 @@
 using {com.sap.hanesbrand as db} from '../db/data-model';
 
-service DocumentDeliveryService {
+service OutboundDeliveryService {
 
-   entity OutboundDeliveryEvent as select from db.OutboundDeliveryEvent actions {
+   entity OutboundDelivery as select from db.OutboundDelivery actions {
             action confirmShipment(documentId: String);
    }
 

@@ -11,7 +11,7 @@ import java.util.Map;
 
 @Data
 @NoArgsConstructor
-public class DeliveryDocumentEvent {
+public class OutboundDeliveryEventDto {
 
     public final static String OUTBOUND_DELIVERY = "OutboundDelivery";
 
