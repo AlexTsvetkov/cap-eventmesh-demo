@@ -4,6 +4,14 @@ version: 1.0.0
 description: "A simple CAP project."
 parameters:
   enable-parallel-deployments: true
+  target-domain: ${default-domain}
+
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npm install --production
+
 modules:
   - name: cap-eventmesh-demo-srv
     type: java
@@ -20,7 +28,7 @@ modules:
         - mvn clean package -DskipTests=true
       build-result: target/*-exec.jar
     provides:
-      - name: srv-api # required by consumers of CAP services (e.g. approuter)
+      - name: hanesbrand-srv-api # required by consumers of CAP services (e.g. approuter)
         properties:
           srv-url: ${default-url}
     requires:
@@ -29,6 +37,9 @@ modules:
           CDS_MULTITENANCY_APPUI_URL: ~{url}
       - name: cap-eventmesh-demo-auth
       - name: cap-eventmesh-demo-db
+      - name: hanesbrand-em
+      - name: hanesbrand-destination-service
+      - name: hanesbrand-connectivity-service
 
   - name: cap-eventmesh-demo-approuter
     type: approuter.nodejs
@@ -38,10 +49,10 @@ modules:
       disk-quota: 256M
       memory: 256M
     requires:
-      - name: srv-api
+      - name: hanesbrand-srv-api
         group: destinations
         properties:
-          name: srv-api # must be used in xs-app.json as well
+          name: hanesbrand-srv-api # must be used in xs-app.json as well
           url: ~{srv-url}
           forwardAuthToken: true
       - name: cap-eventmesh-demo-auth
@@ -84,3 +95,23 @@ resources:
     parameters:
       service: hana
       service-plan: hdi-shared
+
+  - name: hanesbrand-em
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: enterprise-messaging
+      service-plan: default
+      path: ./em.json
+
+  - name: hanesbrand-destination-service
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service-plan: lite
+      service: destination
+      service-name: renegotiation-destination-service
+
+  - name: hanesbrand-connectivity-service
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service-plan: lite
+      service: connectivity

@@ -4,7 +4,7 @@ spring:
       on-profile: cloud
   destination:
     name:
-      s4Outbound: "API_OUTBOUND_DELIVERY"
+      s4Outbound: "OUTBOUND_DELIVERY_SRV"
 
 #  datasource:
 #    url: "jdbc:sqlite:/Users/adubok/IdeaProjects/cap-eventmesh-demo/db.sqlite"
@@ -21,10 +21,10 @@ logging:
     ROOT: INFO
 
 client:
-  id: clientId
-  secret: clientSecret
+  id: sb-default-eda48648-1ab5-4980-84e9-1d3afdcbc9fa-clone!b275327|xbem-service-broker-!b2436
+  secret: 4449b30c-e099-46a1-b9cb-45d6b7c3c0f4$oT_6jEF-NVkAg-oKUXUAc-QpTjiS7wlFYRTwPD11sqc=
 service:
   url: wss://enterprise-messaging-messaging-gateway.cfapps.eu10.hana.ondemand.com/protocols/amqp10ws
 token:
-  url: https://sapit-dataandintegration-dev.authentication.eu10.hana.ondemand.com/oauth/token
+  url: https://pl-r-d-7u21xz86.authentication.eu10.hana.ondemand.com/oauth/token
 

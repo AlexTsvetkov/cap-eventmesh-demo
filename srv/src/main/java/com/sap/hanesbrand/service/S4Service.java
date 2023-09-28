@@ -6,17 +6,18 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import com.sap.hanesbrand.client.dto.*;
 
-import java.text.MessageFormat;
-
 @RequiredArgsConstructor
 @Slf4j
 @Service
 public class S4Service {
 
-    private static final String GET_HEADER_BY_ID_TEMPLATE = "/A_OutbDeliveryHeader({0})";
+    private static final String FORMAT = "?$format=json";
+    private static final String GET_HEADER_BY_ID = "/A_OutbDeliveryHeader('%s')";
+
     private final S4HttpDestinationClientBasicAuth clientBasicAuth;
 
     public OutboundDeliveryDto getOutboundDeliveryById(String id){
-       return clientBasicAuth.get(MessageFormat.format(GET_HEADER_BY_ID_TEMPLATE, id), OutboundDeliveryDto.class);
+        String entityPath = String.format(GET_HEADER_BY_ID, id);
+            return clientBasicAuth.get(entityPath + FORMAT, OutboundDeliveryDto.class);
     }
 }
