@@ -1,117 +1,240 @@
-_schema-version: '3.1'
+_schema-version: "3.1"
 ID: cap-eventmesh-demo
+description: A simple CAP project.
 version: 1.0.0
-description: "A simple CAP project."
+
+##############################################################################
+#####################   MODULES                                 ##############
+##############################################################################
+modules:
+##############################################################################
+###########   cap-eventmesh-demo-srv                            ##############
+##############################################################################
+- name: cap-eventmesh-demo-srv
+  type: java
+  path: srv
+  properties:
+    JBP_CONFIG_COMPONENTS: 'jres: [''com.sap.xs.java.buildpack.jre.SAPMachineJRE'']'
+    JBP_CONFIG_SAP_MACHINE_JRE: '{ use_offline_repository: false, version: 17.+ }'
+    SPRING_PROFILES_ACTIVE: cloud,sandbox
+  requires:
+  - name: app-api
+    properties:
+      CDS_MULTITENANCY_APPUI_URL: ~{url}
+  - name: cap-eventmesh-demo-auth
+  - name: cap-eventmesh-demo-db
+  - name: hanesbrand-em
+  - name: hanesbrand-destination-service
+  - name: hanesbrand-connectivity-service
+  provides:
+  - name: hanesbrand-srv-api
+    properties:
+      srv-url: ${default-url}
+  parameters:
+    buildpack: sap_java_buildpack
+  build-parameters:
+    build-result: target/*-exec.jar
+    builder: custom
+    commands:
+    - mvn clean package -DskipTests=true
+##############################################################################
+###########   cap-eventmesh-demo-approuter                      ##############
+##############################################################################
+- name: cap-eventmesh-demo-approuter
+  type: approuter.nodejs
+  path: app/
+  requires:
+  - name: hanesbrand-srv-api
+    group: destinations
+    properties:
+      forwardAuthToken: true
+      name: hanesbrand-srv-api
+      url: ~{srv-url}
+  - name: cap-eventmesh-demo-auth
+  - name: hanesbrand-destination-service
+    group: destinations
+    properties:
+      forwardAuthToken: false
+      name: ui5
+      url: https://ui5.sap.com
+  provides:
+  - name: app-api
+    properties:
+      domain: ${domain}
+      url: ${default-url}
+  parameters:
+    disk-quota: 256M
+    keep-existing-routes: true
+    memory: 256M
+##############################################################################
+###########   cap-eventmesh-demo-db-deployer                    ##############
+##############################################################################
+- name: cap-eventmesh-demo-db-deployer
+  type: hdb
+  path: db
+  requires:
+  - name: cap-eventmesh-demo-db
+  parameters:
+    buildpack: nodejs_buildpack
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+##############################################################################
+###########   cap-eventmesh-demo-app-content                    ##############
+##############################################################################
+- name: cap-eventmesh-demo-app-content
+  type: com.sap.application.content
+  path: .
+  requires:
+  - name: cap-eventmesh-demo-repo-host
+    parameters:
+      content-target: true
+  build-parameters:
+    build-result: resources
+    requires:
+    - artifacts:
+      - eventmeshui.zip
+      name: eventmeshui
+      target-path: resources/
+##############################################################################
+###########   eventmeshui                                       ##############
+##############################################################################
+- name: eventmeshui
+  type: html5
+  path: app/eventmeshui
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+##############################################################################
+###########   eventmesh-ui-destination-content                  ##############
+##############################################################################
+- name: eventmesh-ui-destination-content
+  type: com.sap.application.content
+  requires:
+  - name: hanesbrand-destination-service
+    parameters:
+      content-target: true
+  - name: cap-eventmesh-demo-repo-host
+    parameters:
+      service-key:
+        name: cap-eventmesh-demo-repo-host-key
+  - name: cap-eventmesh-demo-auth
+    parameters:
+      service-key:
+        name: cap-eventmesh-demo-auth-key
+  parameters:
+    content:
+      instance:
+        destinations:
+        - Name: eventmesh-ui_html_repo_host
+          ServiceInstanceName: cap-eventmesh-demo-html5-srv
+          ServiceKeyName: cap-eventmesh-demo-repo-host-key
+          sap.cloud.service: eventmeshui
+        - Authentication: OAuth2UserTokenExchange
+          Name: cap-eventmesh-demo-auth
+          ServiceInstanceName: cap-eventmesh-demo-auth-srv
+          ServiceKeyName: cap-eventmesh-demo-auth-key
+          sap.cloud.service: eventmeshui
+        existing_destinations_policy: ignore
+  build-parameters:
+    no-source: true
+
+##############################################################################
+###########   RESOURCES                                         ##############
+##############################################################################
+resources:
+##############################################################################
+###########   cap-eventmesh-demo-auth                           ##############
+##############################################################################
+- name: cap-eventmesh-demo-auth
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      oauth2-configuration:
+        redirect-uris:
+        - https://*.~{app-api/domain}/**
+      tenant-mode: dedicated
+      xsappname: cap-eventmesh-demo-${space}
+    path: ./xs-security.json
+    service: xsuaa
+    service-name: cap-eventmesh-demo-auth-srv
+    service-plan: application
+  requires:
+  - name: app-api
+##############################################################################
+###########   cap-eventmesh-demo-db                             ##############
+##############################################################################
+- name: cap-eventmesh-demo-db
+  type: com.sap.xs.hdi-container
+  parameters:
+    service: hana
+    service-plan: hdi-shared
+##############################################################################
+###########    hanesbrand-em                                    ##############
+##############################################################################
+- name: hanesbrand-em
+  type: org.cloudfoundry.managed-service
+  parameters:
+    path: ./em.json
+    service: enterprise-messaging
+    service-plan: default
+##############################################################################
+###########   hanesbrand-destination-service                    ##############
+##############################################################################
+- name: hanesbrand-destination-service
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      HTML5Runtime_enabled: true
+      init_data:
+        instance:
+          destinations:
+          - Authentication: NoAuthentication
+            Name: ui5
+            ProxyType: Internet
+            Type: HTTP
+            URL: https://ui5.sap.com
+          - Authentication: NoAuthentication
+            HTML5.DynamicDestination: true
+            HTML5.ForwardAuthToken: true
+            Name: hanesbrand-srv-api
+            ProxyType: Internet
+            Type: HTTP
+            URL: ~{hanesbrand-srv-api/srv-url}
+          existing_destinations_policy: update
+    service: destination
+    service-name: renegotiation-destination-service
+    service-plan: lite
+  requires:
+  - name: hanesbrand-srv-api
+##############################################################################
+##########    hanesbrand-connectivity-service                   ##############
+##############################################################################
+- name: hanesbrand-connectivity-service
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: connectivity
+    service-plan: lite
+##############################################################################
+##########    cap-eventmesh-demo-repo-host                      ##############
+##############################################################################
+- name: cap-eventmesh-demo-repo-host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-name: cap-eventmesh-demo-html5-srv
+    service-plan: app-host
 parameters:
+  deploy_mode: html5-repo
   enable-parallel-deployments: true
   target-domain: ${default-domain}
-
 build-parameters:
   before-all:
-    - builder: custom
-      commands:
-        - npm install --production
-
-modules:
-  - name: cap-eventmesh-demo-srv
-    type: java
-    path: srv
-    parameters:
-      buildpack: sap_java_buildpack
-    properties:
-      SPRING_PROFILES_ACTIVE: cloud,sandbox
-      JBP_CONFIG_COMPONENTS: "jres: ['com.sap.xs.java.buildpack.jre.SAPMachineJRE']"
-      JBP_CONFIG_SAP_MACHINE_JRE: '{ use_offline_repository: false, version: 17.+ }'
-    build-parameters:
-      builder: custom
-      commands:
-        - mvn clean package -DskipTests=true
-      build-result: target/*-exec.jar
-    provides:
-      - name: hanesbrand-srv-api # required by consumers of CAP services (e.g. approuter)
-        properties:
-          srv-url: ${default-url}
-    requires:
-      - name: app-api
-        properties:
-          CDS_MULTITENANCY_APPUI_URL: ~{url}
-      - name: cap-eventmesh-demo-auth
-      - name: cap-eventmesh-demo-db
-      - name: hanesbrand-em
-      - name: hanesbrand-destination-service
-      - name: hanesbrand-connectivity-service
-
-  - name: cap-eventmesh-demo-approuter
-    type: approuter.nodejs
-    path: app/
-    parameters:
-      keep-existing-routes: true
-      disk-quota: 256M
-      memory: 256M
-    requires:
-      - name: hanesbrand-srv-api
-        group: destinations
-        properties:
-          name: hanesbrand-srv-api # must be used in xs-app.json as well
-          url: ~{srv-url}
-          forwardAuthToken: true
-      - name: cap-eventmesh-demo-auth
-    provides:
-      - name: app-api
-        properties:
-          url: ${default-url}
-          domain: ${domain}
-
-  - name: cap-eventmesh-demo-db-deployer
-    type: hdb
-    path: db
-    parameters:
-      buildpack: nodejs_buildpack
-    build-parameters:
-      builder: custom
-      commands:
-        - npm run build
-    requires:
-      - name: cap-eventmesh-demo-db
-
-resources:
-  - name: cap-eventmesh-demo-auth
-    type: org.cloudfoundry.managed-service
-    parameters:
-      service: xsuaa
-      service-plan: application
-      path: ./xs-security.json
-      config:
-        xsappname: cap-eventmesh-demo-${space}
-        tenant-mode: dedicated
-        oauth2-configuration:
-          redirect-uris:
-            - https://*.~{app-api/domain}/**
-    requires:
-      - name: app-api
-
-  - name: cap-eventmesh-demo-db
-    type: com.sap.xs.hdi-container
-    parameters:
-      service: hana
-      service-plan: hdi-shared
-
-  - name: hanesbrand-em
-    type: org.cloudfoundry.managed-service
-    parameters:
-      service: enterprise-messaging
-      service-plan: default
-      path: ./em.json
-
-  - name: hanesbrand-destination-service
-    type: org.cloudfoundry.managed-service
-    parameters:
-      service-plan: lite
-      service: destination
-      service-name: renegotiation-destination-service
-
-  - name: hanesbrand-connectivity-service
-    type: org.cloudfoundry.managed-service
-    parameters:
-      service-plan: lite
-      service: connectivity
+  - builder: custom
+    commands:
+    - npm install --production

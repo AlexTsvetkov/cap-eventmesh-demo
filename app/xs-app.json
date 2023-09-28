@@ -17,5 +17,6 @@
       "destination": "hanesbrand-srv-api",
       "authenticationType": "xsuaa"
     }
-  ]
+  ],
+  "welcomeFile": "/eventmeshui"
 }

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="OutboundDeliveryService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="OutboundDelivery" EntityType="OutboundDeliveryService.OutboundDelivery"/>
+            </EntityContainer>
+            <EntityType Name="OutboundDelivery">
+                <Key>
+                    <PropertyRef Name="DeliveryDocument"/>
+                </Key>
+                <Property Name="DeliveryDocument" Type="Edm.String" MaxLength="10" Nullable="false"/>
+                <Property Name="actualDeliveryRoute" Type="Edm.String" MaxLength="6"/>
+                <Property Name="shippinglocationtimezone" Type="Edm.String" MaxLength="6"/>
+                <Property Name="receivinglocationtimezone" Type="Edm.String" MaxLength="6"/>
+                <Property Name="billingDocumentDate" Type="Edm.String" MaxLength="25"/>
+                <Property Name="billOfLading" Type="Edm.String" MaxLength="35"/>
+                <Property Name="completeDeliveryIsDefined" Type="Edm.Boolean"/>
+                <Property Name="confirmationTime" Type="Edm.String" MaxLength="20"/>
+                <Property Name="createdByUser" Type="Edm.String" MaxLength="12"/>
+                <Property Name="sendToWMSDate" Type="Edm.Date"/>
+                <Property Name="shipmentConfirmedDate" Type="Edm.Date"/>
+                <Property Name="customerGroup" Type="Edm.String" MaxLength="2"/>
+                <Property Name="deliveryBlockReason" Type="Edm.String" MaxLength="2"/>
+                <Property Name="deliveryDate" Type="Edm.String" MaxLength="25"/>
+                <Property Name="deliveryDocumentBySupplier" Type="Edm.String" MaxLength="35"/>
+                <Property Name="deliveryDocumentType" Type="Edm.String" MaxLength="4"/>
+                <Property Name="deliveryIsInPlant" Type="Edm.Boolean"/>
+                <Property Name="deliveryPriority" Type="Edm.String" MaxLength="2"/>
+                <Property Name="deliveryTime" Type="Edm.String" MaxLength="20"/>
+                <Property Name="deliveryVersion" Type="Edm.String" MaxLength="4"/>
+                <Property Name="depreciationPercentage" Type="Edm.Decimal" Scale="2" Precision="5"/>
+                <Property Name="distrStatusByDecentralizedWrhs" Type="Edm.String" MaxLength="1"/>
+                <Property Name="status" Type="Edm.String" MaxLength="2"/>
+                <Property Name="statusDescription" Type="Edm.String" MaxLength="20"/>
+            </EntityType>
+            <Action Name="confirmShipment" IsBound="true">
+                <Parameter Name="in" Type="OutboundDeliveryService.OutboundDelivery"/>
+                <Parameter Name="documentId" Type="Edm.String"/>
+            </Action>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
