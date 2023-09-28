@@ -1,13 +1,13 @@
 package com.sap.hanesbrand.dao;
 
-import cds.gen.documentdeliveryservice.OutboundDeliveryEvent;
+import cds.gen.outbounddeliveryservice.OutboundDelivery;
 
 public interface OutboundDeliveryDao {
 
-    OutboundDeliveryEvent selectOutboundDeliveryById(String id);
+    OutboundDelivery selectOutboundDeliveryById(String id);
 
-    void saveOutboundDelivery(OutboundDeliveryEvent outboundDeliveryEvent);
+    void saveOutboundDelivery(OutboundDelivery outboundDelivery);
 
-    void updateStatus(String deliveryId, String status);
+    void updateStatus(String deliveryId, String status, String statusDescription);
 
 }

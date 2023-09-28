@@ -1,7 +1,7 @@
 package com.sap.hanesbrand.dao.impl;
 
-import cds.gen.documentdeliveryservice.OutboundDeliveryEvent;
-import cds.gen.documentdeliveryservice.OutboundDeliveryEvent_;
+import cds.gen.outbounddeliveryservice.OutboundDelivery;
+import cds.gen.outbounddeliveryservice.OutboundDelivery_;
 import com.sap.cds.ql.Select;
 import com.sap.cds.ql.Update;
 import com.sap.cds.ql.Upsert;
@@ -20,31 +20,34 @@ import org.springframework.stereotype.Repository;
 public class OutBoundDeliveryDaoImpl implements OutboundDeliveryDao {
 
     private final PersistenceService persistenceService;
-    private static final String PKMS = "PKMS";
-    private final String SOURCE_TYPE = OutboundDeliveryEvent_.CDS_NAME;
+    private static final String PKMS = "1";
+    private static final String PKMS_DESCRIPTION = "Sent to WMS";
+    private final String SOURCE_TYPE = OutboundDelivery_.CDS_NAME;
 
     @Override
-    public OutboundDeliveryEvent selectOutboundDeliveryById(String id) {
+    public OutboundDelivery selectOutboundDeliveryById(String id) {
         CqnSelect selectQuery = Select.from(SOURCE_TYPE)
-                .where(i -> i.get(OutboundDeliveryEvent.DELIVERY_DOCUMENT).eq(id));
-        return persistenceService.run(selectQuery).single(OutboundDeliveryEvent.class);
+                .where(i -> i.get(OutboundDelivery.DELIVERY_DOCUMENT).eq(id));
+        return persistenceService.run(selectQuery).single(OutboundDelivery.class);
 
     }
 
     @Override
-    public void saveOutboundDelivery(OutboundDeliveryEvent outboundDeliveryEvent) {
+    public void saveOutboundDelivery(OutboundDelivery outboundDeliveryEvent) {
         log.info("OutBoundDeliveryDaoImpl: saveOutboundDelivery {} ", outboundDeliveryEvent);
         outboundDeliveryEvent.setStatus(PKMS);
+        outboundDeliveryEvent.setStatusDescription(PKMS_DESCRIPTION);
         CqnUpsert upsert = Upsert.into(SOURCE_TYPE).entry(outboundDeliveryEvent);
         persistenceService.run(upsert);
 
     }
 
-    public void updateStatus(String deliveryId, String status) {
+    public void updateStatus(String deliveryId, String status, String statusDescription) {
         log.info("OutBoundDeliveryDaoImpl: updateStatus for {}", deliveryId);
-        OutboundDeliveryEvent outboundDeliveryEvent = OutboundDeliveryEvent.create();
-        outboundDeliveryEvent.setStatus(status);
-        CqnUpdate update = Update.entity(SOURCE_TYPE).data(outboundDeliveryEvent).byId(deliveryId);
+        OutboundDelivery outboundDelivery = OutboundDelivery.create();
+        outboundDelivery.setStatus(status);
+        outboundDelivery.setStatusDescription(statusDescription);
+        CqnUpdate update = Update.entity(SOURCE_TYPE).data(outboundDelivery).byId(deliveryId);
         persistenceService.run(update);
     }
 }

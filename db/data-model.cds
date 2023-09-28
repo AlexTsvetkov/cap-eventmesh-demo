@@ -2,7 +2,7 @@ namespace com.sap.hanesbrand;
 
 using {managed, extensible} from '@sap/cds/common';
 
-entity OutboundDeliveryEvent {
+entity OutboundDelivery {
   key DeliveryDocument: String(10);
   actualDeliveryRoute: String(6);
   shippinglocationtimezone: String(6);
@@ -25,5 +25,6 @@ entity OutboundDeliveryEvent {
   deliveryVersion: String(4);
   depreciationPercentage: Decimal(5, 2);
   distrStatusByDecentralizedWrhs: String(1);
-  status: String (20);
+  status: String(2);
+  statusDescription: String(20);
 }

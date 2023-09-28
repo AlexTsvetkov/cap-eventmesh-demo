@@ -1,10 +1,11 @@
 package com.sap.hanesbrand.service;
 
-import cds.gen.documentdeliveryservice.OutboundDeliveryEvent;
+import cds.gen.outbounddeliveryservice.OutboundDelivery;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.sap.hanesbrand.client.dto.DeliveryDocumentEvent;
 import com.sap.hanesbrand.client.dto.OutboundDeliveryDto;
+import com.sap.hanesbrand.client.dto.OutboundDeliveryEventDto;
 import com.sap.hanesbrand.dao.OutboundDeliveryDao;
 import com.sap.hanesbrand.mapper.OutboundDeliveryMapper;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,8 @@ import javax.jms.BytesMessage;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
+
+import static com.sap.hanesbrand.client.dto.OutboundDeliveryEventDto.OUTBOUND_DELIVERY;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -29,6 +32,7 @@ public class DDMessageListener implements MessageListener {
     public void onMessage(Message message) {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         String messageText = null;
         try {
             if (message instanceof TextMessage) {
@@ -40,11 +44,12 @@ public class DDMessageListener implements MessageListener {
                 messageText = new String(data);
             }
 
-            DeliveryDocumentEvent event = objectMapper.readValue(messageText, DeliveryDocumentEvent.class);
+            OutboundDeliveryEventDto event = objectMapper.readValue(messageText, OutboundDeliveryEventDto.class);
+            String deliveryDocument = event.getData().get(OUTBOUND_DELIVERY);
             log.info("DDMessageListener: --Event received: " + event);
-            OutboundDeliveryDto outboundDeliveryDto = s4Service.getOutboundDeliveryById(event.getDeliveryDocument());
+            OutboundDeliveryDto outboundDeliveryDto = s4Service.getOutboundDeliveryById(deliveryDocument);
             log.info("DDMessageListener: outboundDeliveryDto =" + outboundDeliveryDto.toString());
-            OutboundDeliveryEvent outboundDelivery = mapper.s4DocumentToOutboundDelivery(outboundDeliveryDto.getDocument());
+            OutboundDelivery outboundDelivery = mapper.s4DocumentToOutboundDelivery(outboundDeliveryDto.getDocument());
             outboundDeliveryRepository.saveOutboundDelivery(outboundDelivery);
         } catch (Exception e) {
             log.error("DDMessageListener: --Cannot receive event: " + e.getMessage());
