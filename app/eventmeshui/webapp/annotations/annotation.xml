@@ -1,0 +1,215 @@
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI" />
+    </edmx:Reference>
+    <edmx:Reference Uri="/odata/v4/OutboundDeliveryService/$metadata">
+        <edmx:Include Namespace="OutboundDeliveryService" />
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="local">
+            <Annotations Target="OutboundDeliveryService.OutboundDelivery">
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>status</PropertyPath>
+                        <PropertyPath>actualDeliveryRoute</PropertyPath>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Delivery document" />
+                            <PropertyValue Property="Value" Path="DeliveryDocument" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Delivery date" />
+                            <PropertyValue Property="Value" Path="deliveryDate" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Status" />
+                            <PropertyValue Property="Value" Path="status" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Delivery block reason" />
+                            <PropertyValue Property="Value" Path="deliveryBlockReason" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Creation date" />
+                            <PropertyValue Property="Value" Path="creationDate" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Creation time" />
+                            <PropertyValue Property="Value" Path="creationTime" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Bill of lading" />
+                            <PropertyValue Property="Value" Path="billOfLading" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Delivery route" />
+                            <PropertyValue Property="Value" Path="actualDeliveryRoute" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Document by supplier" />
+                            <PropertyValue Property="Value" Path="deliveryDocumentBySupplier" />
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="GeneratedGroup1">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="DeliveryDocument" />
+                                    <PropertyValue Property="Value" Path="DeliveryDocument" />
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="actualDeliveryRoute" />
+                                    <PropertyValue Property="Value" Path="actualDeliveryRoute" />
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="shippinglocationtimezone" />
+                                    <PropertyValue Property="Value" Path="shippinglocationtimezone" />
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="receivinglocationtimezone" />
+                                    <PropertyValue Property="Value" Path="receivinglocationtimezone" />
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="billingDocumentDate" />
+                                    <PropertyValue Property="Value" Path="billingDocumentDate" />
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="billOfLading" />
+                                    <PropertyValue Property="Value" Path="billOfLading" />
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="completeDeliveryIsDefined" />
+                                    <PropertyValue Property="Value" Path="completeDeliveryIsDefined" />
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="confirmationTime" />
+                                    <PropertyValue Property="Value" Path="confirmationTime" />
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="createdByUser" />
+                                    <PropertyValue Property="Value" Path="createdByUser" />
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="Creation date" />
+                                    <PropertyValue Property="Value" Path="creationDate" />
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="Creation time" />
+                                    <PropertyValue Property="Value" Path="creationTime" />
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="customerGroup" />
+                                    <PropertyValue Property="Value" Path="customerGroup" />
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="deliveryBlockReason" />
+                                    <PropertyValue Property="Value" Path="deliveryBlockReason" />
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="deliveryDate" />
+                                    <PropertyValue Property="Value" Path="deliveryDate" />
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="deliveryDocumentBySupplier" />
+                                    <PropertyValue Property="Value" Path="deliveryDocumentBySupplier" />
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="deliveryDocumentType" />
+                                    <PropertyValue Property="Value" Path="deliveryDocumentType" />
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="deliveryIsInPlant" />
+                                    <PropertyValue Property="Value" Path="deliveryIsInPlant" />
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="deliveryPriority" />
+                                    <PropertyValue Property="Value" Path="deliveryPriority" />
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="deliveryTime" />
+                                    <PropertyValue Property="Value" Path="deliveryTime" />
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="deliveryVersion" />
+                                    <PropertyValue Property="Value" Path="deliveryVersion" />
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="depreciationPercentage" />
+                                    <PropertyValue Property="Value" Path="depreciationPercentage" />
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="distrStatusByDecentralizedWrhs" />
+                                    <PropertyValue Property="Value" Path="distrStatusByDecentralizedWrhs" />
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="status" />
+                                    <PropertyValue Property="Value" Path="status" />
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="statusDescription" />
+                                    <PropertyValue Property="Value" Path="statusDescription" />
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.Facets">
+                    <Collection>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="ID" String="GeneratedFacet1" />
+                            <PropertyValue Property="Label" String="General Information" />
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#GeneratedGroup1" />
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="OutboundDeliveryService.OutboundDelivery/DeliveryDocument">
+                <Annotation Term="Common.Label" String="Delivery document" />
+            </Annotations>
+            <Annotations Target="OutboundDeliveryService.OutboundDelivery/actualDeliveryRoute">
+                <Annotation Term="Common.Label" String="Delivery route" />
+            </Annotations>
+            <Annotations Target="OutboundDeliveryService.OutboundDelivery/billingDocumentDate">
+                <Annotation Term="Common.Label" String="Billing document date" />
+            </Annotations>
+            <Annotations Target="OutboundDeliveryService.OutboundDelivery/completeDeliveryIsDefined">
+                <Annotation Term="Common.Label" String="Complete delivery" />
+            </Annotations>
+            <Annotations Target="OutboundDeliveryService.OutboundDelivery/confirmationTime">
+                <Annotation Term="Common.Label" String="Conformation time" />
+            </Annotations>
+            <Annotations Target="OutboundDeliveryService.OutboundDelivery/createdByUser">
+                <Annotation Term="Common.Label" String="Created by" />
+            </Annotations>
+            <Annotations Target="OutboundDeliveryService.OutboundDelivery/creationDate">
+                <Annotation Term="Common.Label" String="Creation date" />
+            </Annotations>
+            <Annotations Target="OutboundDeliveryService.OutboundDelivery/customerGroup">
+                <Annotation Term="Common.Label" String="Customer group" />
+            </Annotations>
+            <Annotations Target="OutboundDeliveryService.OutboundDelivery/deliveryBlockReason">
+                <Annotation Term="Common.Label" String="Block reason" />
+            </Annotations>
+            <Annotations Target="OutboundDeliveryService.OutboundDelivery/deliveryDate">
+                <Annotation Term="Common.Label" String="Delivery date" />
+            </Annotations>
+            <Annotations Target="OutboundDeliveryService.OutboundDelivery/deliveryDocumentBySupplier">
+                <Annotation Term="Common.Label" String="Delivery document by supplier" />
+            </Annotations>
+            <Annotations Target="OutboundDeliveryService.OutboundDelivery/deliveryDocumentType">
+                <Annotation Term="Common.Label" String="Delivery document type" />
+            </Annotations>
+            <Annotations Target="OutboundDeliveryService.OutboundDelivery/deliveryIsInPlant">
+                <Annotation Term="Common.Label" String="Is plant" />
+            </Annotations>
+            <Annotations Target="OutboundDeliveryService.OutboundDelivery/status">
+                <Annotation Term="Common.Label" String="Status" />
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

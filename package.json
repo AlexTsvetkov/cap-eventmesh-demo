@@ -1,8 +1,17 @@
 {
-  "name": "renegotiation-srv",
-  "version": "1.0.0",
-  "dependencies": {
-    "@cap-js/sqlite": "^1.2.1",
-    "@sap/cds-dk": "^7"
-  }
+    "name": "renegotiation-srv",
+    "version": "1.0.0",
+    "dependencies": {
+        "@cap-js/sqlite": "^1.2.1",
+        "@sap/cds-dk": "^7"
+    },
+    "scripts": {
+        "undeploy": "cf undeploy cap-eventmesh-demo --delete-services --delete-service-keys --delete-service-brokers",
+        "build": "rimraf resources mta_archives && mbt build --mtar archive",
+        "deploy": "cf deploy mta_archives/archive.mtar --retries 1",
+        "push": "mbt build && cf deploy mta_archives/cap-eventmesh-demo_1.0.0.mtar"
+    },
+    "devDependencies": {
+        "rimraf": "^3.0.2"
+    }
 }
