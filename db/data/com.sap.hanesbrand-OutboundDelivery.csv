@@ -1,0 +1,12 @@
+DeliveryDocument,actualDeliveryRoute,shippinglocationtimezone,receivinglocationtimezone,billingDocumentDate,billOfLading,completeDeliveryIsDefined,confirmationTime,createdByUser,creationDate,creationTime,customerGroup,deliveryBlockReason,deliveryDate,deliveryDocumentBySupplier,deliveryDocumentType,deliveryIsInPlant,deliveryPriority,deliveryTime,deliveryVersion,depreciationPercentage,distrStatusByDecentralizedWrhs,status,statusDescription
+80000010,,UTC+3,UTC+3,/Date(1647993600000)/,,false,PT00H00M00S,EGUKISH,,,,,/Date(1647907200000)/,,RL,false,00,PT21H00M00S,0003,0,,1,
+80000020,,UTC+3,UTC+3,/Date(1648425600000)/,,false,PT00H00M00S,EGUKISH,,,,,/Date(1648339200000)/,,LO,false,00,PT21H00M00S,0001,0,,2,
+80000021,,UTC+3,UTC+3,/Date(1648598400000)/,,false,PT00H00M00S,PHEDORINCHIK,,,,,/Date(1648512000000)/,,LO,false,00,PT21H00M00S,0001,0,,2,Shipment Confirmed
+80000022,,UTC+3,UTC+3,/Date(1648512000000)/,,false,PT00H00M00S,KHURSAN,,,,,/Date(1648425600000)/,,RL,false,00,PT21H00M00S,0002,0,,2,Shipment Confirmed
+80000029,,UTC+3,UTC+3,/Date(1648771200000)/,,false,PT00H00M00S,PHEDORINCHIK,2023-09-28,,,,/Date(1649289600000)/,,ZNLC,false,00,PT21H00M00S,0003,0,,1,Sent to WMS
+80000696,,CET,CET,/Date(1695945600000)/,,false,PT00H00M00S,ABATAEV,2023-09-28,,,,/Date(1695945600000)/,,LF,false,00,PT15H50M51S,0001,0,B,1,Sent to WMS
+80000697,,CET,CET,/Date(1695945600000)/,,false,PT00H00M00S,ABATAEV,2023-09-28,,,,/Date(1695945600000)/,,LF,false,00,PT15H54M17S,0001,0,B,1,Sent to WMS
+80000698,,CET,CET,/Date(1695945600000)/,,false,PT00H00M00S,ABATAEV,2023-09-28,,,,/Date(1695945600000)/,,LF,false,00,PT15H55M56S,0001,0,B,1,Sent to WMS
+80000699,,CET,CET,/Date(1695945600000)/,,false,PT00H00M00S,ABATAEV,2023-09-28,,,,/Date(1695945600000)/,,LF,false,00,PT16H00M00S,0001,0,B,1,Sent to WMS
+80000700,,CET,CET,/Date(1695945600000)/,,false,PT00H00M00S,ABATAEV,2023-09-28,,,,/Date(1695945600000)/,,LF,false,00,PT16H00M00S,0001,0,B,1,Sent to WMS
+80000701,,CET,CET,/Date(1695945600000)/,,false,PT00H00M00S,ABATAEV,2023-09-28,,,,/Date(1695945600000)/,,LF,false,00,PT16H00M00S,0001,0,B,1,Sent to WMS
