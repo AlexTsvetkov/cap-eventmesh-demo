@@ -1,0 +1,29 @@
+{
+  "version": "1.1.0",
+  "emname": "hanesbrand-em",
+  "namespace": "com/sap/hanesbrand",
+
+  "options": {
+    "management": true,
+    "messagingrest": true,
+    "messaging": true
+  },
+  "rules": {
+    "queueRules": {
+      "subscribeFilter": [
+        "*"
+      ],
+      "publishFilter": [
+        "${namespace}/*"
+      ]
+    },
+    "topicRules": {
+      "subscribeFilter": [
+        "*"
+      ],
+      "publishFilter": [
+        "${namespace}/*"
+      ]
+    }
+  }
+}
