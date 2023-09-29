@@ -7,21 +7,21 @@ entity OutboundDelivery {
   actualDeliveryRoute: String(6) @title : 'Delivery route';
   shippinglocationtimezone: String(6);
   receivinglocationtimezone: String(6);
-  billingDocumentDate: String(25) @title : 'Billing document date'; // Increased length to 14
+  billingDocumentDate: Date;
   billOfLading: String(35);
   completeDeliveryIsDefined: Boolean @title : 'Complete delivery';
-  confirmationTime: String(20) @title : 'Conformation time';
+  confirmationTime: Time @title : 'Conformation time';
   createdByUser: String(12) @title : 'Created by';
-  creationDate: String(30) @title : 'Creation date'; // Increased length to 16
-  creationTime: String(20);
+  creationDate: Date @title : 'Creation date';
+  creationTime: Time;
   customerGroup: String(2) @title : 'Customer group';
   deliveryBlockReason: String(2) @title : 'Block reason';
-  deliveryDate: String(25) @title : 'Delivery date'; // Increased length to 16
+  deliveryDate: Date @title : 'Delivery date';
   deliveryDocumentBySupplier: String(35) @title : 'Delivery document by supplier';
   deliveryDocumentType: String(4) @title : 'Delivery document type';
   deliveryIsInPlant: Boolean @title : 'Is plant';
   deliveryPriority: String(2);
-  deliveryTime: String(20);
+  deliveryTime: Time;
   deliveryVersion: String(4);
   depreciationPercentage: Decimal(5, 2);
   distrStatusByDecentralizedWrhs: String(1);

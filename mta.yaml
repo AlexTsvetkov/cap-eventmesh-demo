@@ -72,14 +72,14 @@ modules:
 - name: cap-eventmesh-demo-db-deployer
   type: hdb
   path: db
-  requires:
-  - name: cap-eventmesh-demo-db
   parameters:
     buildpack: nodejs_buildpack
   build-parameters:
     builder: custom
     commands:
-    - npm run build
+      - npm run build
+  requires:
+      - name: cap-eventmesh-demo-db
 ##############################################################################
 ###########   cap-eventmesh-demo-app-content                    ##############
 ##############################################################################
