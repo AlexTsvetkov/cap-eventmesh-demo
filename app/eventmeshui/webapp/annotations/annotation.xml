@@ -33,6 +33,14 @@
                             <PropertyValue Property="Value" Path="deliveryBlockReason" />
                         </Record>
                         <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Creation date" />
+                            <PropertyValue Property="Value" Path="creationDate" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Creation time" />
+                            <PropertyValue Property="Value" Path="creationTime" />
+                        </Record>
+                        <Record Type="UI.DataField">
                             <PropertyValue Property="Label" String="Bill of lading" />
                             <PropertyValue Property="Value" Path="billOfLading" />
                         </Record>
@@ -87,12 +95,12 @@
                                     <PropertyValue Property="Value" Path="createdByUser" />
                                 </Record>
                                 <Record Type="UI.DataField">
-                                    <PropertyValue Property="Label" String="sendToWMSDate" />
-                                    <PropertyValue Property="Value" Path="sendToWMSDate" />
+                                    <PropertyValue Property="Label" String="Creation date" />
+                                    <PropertyValue Property="Value" Path="creationDate" />
                                 </Record>
                                 <Record Type="UI.DataField">
-                                    <PropertyValue Property="Label" String="shipmentConfirmedDate" />
-                                    <PropertyValue Property="Value" Path="shipmentConfirmedDate" />
+                                    <PropertyValue Property="Label" String="Creation time" />
+                                    <PropertyValue Property="Value" Path="creationTime" />
                                 </Record>
                                 <Record Type="UI.DataField">
                                     <PropertyValue Property="Label" String="customerGroup" />
