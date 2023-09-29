@@ -7,3 +7,10 @@ service OutboundDeliveryService {
    }
 
 }
+
+annotate OutboundDeliveryService.OutboundDelivery with @(
+    UI.SelectionFields : [
+        status,
+        actualDeliveryRoute
+    ],
+);
