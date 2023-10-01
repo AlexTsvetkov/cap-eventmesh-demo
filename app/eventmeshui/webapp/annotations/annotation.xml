@@ -1,59 +1,72 @@
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common" />
+    </edmx:Reference>
     <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
         <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI" />
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
+        <edmx:Include Alias="Capabilities" Namespace="Org.OData.Capabilities.V1" />
     </edmx:Reference>
     <edmx:Reference Uri="/odata/v4/OutboundDeliveryService/$metadata">
         <edmx:Include Namespace="OutboundDeliveryService" />
     </edmx:Reference>
     <edmx:DataServices>
+    
         <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="local">
+            
             <Annotations Target="OutboundDeliveryService.OutboundDelivery">
-                <Annotation Term="UI.SelectionFields">
-                    <Collection>
-                        <PropertyPath>status</PropertyPath>
-                        <PropertyPath>actualDeliveryRoute</PropertyPath>
-                    </Collection>
-                </Annotation>
                 <Annotation Term="UI.LineItem">
                     <Collection>
                         <Record Type="UI.DataField">
-                            <PropertyValue Property="Label" String="Delivery document" />
+                            <PropertyValue Property="Label" String="{@i18n>deliveryDocument}" />
                             <PropertyValue Property="Value" Path="DeliveryDocument" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="{@i18n>status}" />
+                            <PropertyValue Property="Value" Path="statusDescription" />
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Label" String="Creating date" />
+                            <PropertyValue Property="Value" Path="creationDate" />
                         </Record>
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Label" String="Delivery date" />
                             <PropertyValue Property="Value" Path="deliveryDate" />
                         </Record>
                         <Record Type="UI.DataField">
-                            <PropertyValue Property="Label" String="Status" />
-                            <PropertyValue Property="Value" Path="status" />
+                            <PropertyValue Property="Label" String="Sent to WMS" />
+                            <PropertyValue Property="Value" Path="sendToWMSDate" />
                         </Record>
                         <Record Type="UI.DataField">
-                            <PropertyValue Property="Label" String="Delivery block reason" />
-                            <PropertyValue Property="Value" Path="deliveryBlockReason" />
+                            <PropertyValue Property="Label" String="Shipment confirmed date" />
+                            <PropertyValue Property="Value" Path="shipmentConfirmedDate" />
                         </Record>
                         <Record Type="UI.DataField">
-                            <PropertyValue Property="Label" String="Creation date" />
-                            <PropertyValue Property="Value" Path="creationDate" />
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Label" String="Creation time" />
-                            <PropertyValue Property="Value" Path="creationTime" />
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Label" String="Bill of lading" />
-                            <PropertyValue Property="Value" Path="billOfLading" />
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Label" String="Delivery route" />
-                            <PropertyValue Property="Value" Path="actualDeliveryRoute" />
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Label" String="Document by supplier" />
-                            <PropertyValue Property="Value" Path="deliveryDocumentBySupplier" />
+                            <PropertyValue Property="Label" String="{@i18n>shipmentConfomationDate}" />
+                            <PropertyValue Property="Value" Path="shipmentConfirmedDate" />
                         </Record>
                     </Collection>
+                    <Annotation Term="UI.Criticality" Path="criticality_code" />
                 </Annotation>
+
+                <Annotation Term="UI.HeaderInfo">
+                    <Record Type="UI.HeaderInfoType">
+                        <PropertyValue Property="TypeName" String="Outbound Delivery" />
+                        <PropertyValue Property="TypeNamePlural" String="Outbound Deliveries" />
+                    </Record>
+                </Annotation>
+
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>DeliveryDocument</PropertyPath>
+                        <PropertyPath>statusDescription</PropertyPath>
+                        <PropertyPath>sendToWMSDate</PropertyPath>
+                        <PropertyPath>shipmentConfirmedDate</PropertyPath>
+                        
+                    </Collection>
+                </Annotation>
+
                 <Annotation Term="UI.FieldGroup" Qualifier="GeneratedGroup1">
                     <Record Type="UI.FieldGroupType">
                         <PropertyValue Property="Data">
@@ -158,15 +171,46 @@
                         </PropertyValue>
                     </Record>
                 </Annotation>
-                <Annotation Term="UI.Facets">
-                    <Collection>
-                        <Record Type="UI.ReferenceFacet">
-                            <PropertyValue Property="ID" String="GeneratedFacet1" />
-                            <PropertyValue Property="Label" String="General Information" />
-                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#GeneratedGroup1" />
-                        </Record>
-                    </Collection>
+            </Annotations>
+
+            <Annotations Target="OutboundDeliveryService.EntityContainer/OutboundDelivery">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="false" />
+                    </Record>
                 </Annotation>
+                <Annotation Term="Capabilities.FilterRestrictions">
+                    <Record Type="Capabilities.FilterRestrictionsType">
+                        <PropertyValue Property="FilterExpressionRestrictions">
+                            <Collection>
+                                <Record Type="Capabilities.FilterExpressionRestrictionType">
+                                    <PropertyValue Property="Property" PropertyPath="statusDescription" />
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue" />
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            
+            <Annotations Target="OutboundDeliveryService.OutboundDelivery/statusDescription">
+                <Annotation Term="Common.ValueListWithFixedValues" Bool="true" />
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="Label" String="{@i18n>status}" />
+                        <PropertyValue Property="CollectionPath" String="OutboundDelivery" />
+                        <PropertyValue Property="SearchSupported" Bool="true" />
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="statusDescription" />
+                                    <PropertyValue Property="ValueListProperty" String="statusDescription" />
+                                </Record>                                
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.Label" String="Status" />
             </Annotations>
             <Annotations Target="OutboundDeliveryService.OutboundDelivery/DeliveryDocument">
                 <Annotation Term="Common.Label" String="Delivery document" />
@@ -209,6 +253,13 @@
             </Annotations>
             <Annotations Target="OutboundDeliveryService.OutboundDelivery/status">
                 <Annotation Term="Common.Label" String="Status" />
+            </Annotations>
+            <Annotations Target="OutboundDeliveryService.OutboundDelivery/sendToWMSDate">
+                <Annotation Term="Common.Label" String="Send to WMS date" />               
+            </Annotations>
+            <Annotations Target="OutboundDeliveryService.OutboundDelivery/criticality_code">
+                <Annotation Term="UI.Hidden" Bool="true" />
+                <Annotation Term="Core.Computed" Bool="true" />
             </Annotations>
         </Schema>
     </edmx:DataServices>

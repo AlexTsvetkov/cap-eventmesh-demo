@@ -111,17 +111,11 @@
             "eventmeshui": "."
         },
         "routing": {
-            "config": {},
             "routes": [
                 {
                     "pattern": ":?query:",
                     "name": "OutboundDeliveryList",
                     "target": "OutboundDeliveryList"
-                },
-                {
-                    "pattern": "OutboundDelivery({key}):?query:",
-                    "name": "OutboundDeliveryObjectPage",
-                    "target": "OutboundDeliveryObjectPage"
                 }
             ],
             "targets": {
@@ -133,27 +127,36 @@
                         "settings": {
                             "entitySet": "OutboundDelivery",
                             "variantManagement": "Page",
-                            "navigation": {
-                                "OutboundDelivery": {
-                                    "detail": {
-                                        "route": "OutboundDeliveryObjectPage"
+                            "initialLoad": "Enabled",
+                            "controlConfiguration": {
+                                "@com.sap.vocabularies.UI.v1.SelectionFields": {
+                                    "useSemanticDateRange": true
+                                },
+                                "@com.sap.vocabularies.UI.v1.LineItem": {
+                                    "actions": {
+                                        "ListReportExtation": {
+                                            "requiresSelection": false,
+                                            "text": "{i18n>press}",
+                                            "press": "eventmeshui.ext.listReportExtation.ListReportExtation.customAction",
+                                            "visible": true,
+                                            "enabled": false
+                                        }
+                                    },
+                                    "tableSettings": {
+                                        "quickVariantSelection": {
+                                            "hideTableTitle": false
+                                        }
                                     }
                                 }
                             }
                         }
                     }
-                },
-                "OutboundDeliveryObjectPage": {
-                    "type": "Component",
-                    "id": "OutboundDeliveryObjectPage",
-                    "name": "sap.fe.templates.ObjectPage",
-                    "options": {
-                        "settings": {
-                            "editableHeaderContent": false,
-                            "entitySet": "OutboundDelivery"
-                        }
-                    }
                 }
+            }
+        },
+        "extends": {
+            "extensions": {
+                "sap.ui.controllerExtensions": {}
             }
         }
     },
