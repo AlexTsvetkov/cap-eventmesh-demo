@@ -35,7 +35,7 @@ public class OutboundDeliveryController {
     public void confirmShipment(@RequestBody ConfirmShipmentDto shipmentDto) {
         log.info("OutboundDeliveryController: confirmShipment : {} ", shipmentDto.toString());
         OutboundDelivery outboundDelivery = outboundDeliveryRepository.selectOutboundDeliveryById(shipmentDto.getDeliveryDocument());
-        outboundDeliveryRepository.updateStatus(outboundDelivery.getDeliveryDocument(), SHIPMENT_CONFIRM, STATUS_DESCRIPTION);
+        outboundDeliveryRepository.updateConfirmShipmentStatus(outboundDelivery.getDeliveryDocument(), SHIPMENT_CONFIRM, STATUS_DESCRIPTION);
     }
 
 

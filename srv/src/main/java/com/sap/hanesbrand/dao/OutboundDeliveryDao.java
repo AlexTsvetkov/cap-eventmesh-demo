@@ -8,6 +8,6 @@ public interface OutboundDeliveryDao {
 
     void saveOutboundDelivery(OutboundDelivery outboundDelivery);
 
-    void updateStatus(String deliveryId, String status, String statusDescription);
+    void updateConfirmShipmentStatus(String deliveryId, String status, String statusDescription);
 
 }

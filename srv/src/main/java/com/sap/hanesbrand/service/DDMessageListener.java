@@ -53,7 +53,7 @@ public class DDMessageListener implements MessageListener {
             if(eventType.contains("ConfirmShipment")){
                 log.info("ConfirmShipment");
                 OutboundDelivery outboundDelivery = outboundDeliveryRepository.selectOutboundDeliveryById(deliveryDocument);
-                outboundDeliveryRepository.updateStatus(outboundDelivery.getDeliveryDocument(), SHIPMENT_CONFIRM, STATUS_DESCRIPTION);
+                outboundDeliveryRepository.updateConfirmShipmentStatus(outboundDelivery.getDeliveryDocument(), SHIPMENT_CONFIRM, STATUS_DESCRIPTION);
             }
             if(eventType.contains("OutboundDelivery")){
                 log.info("OutboundDelivery");

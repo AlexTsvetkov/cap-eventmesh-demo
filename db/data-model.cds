@@ -27,4 +27,6 @@ entity OutboundDelivery {
   distrStatusByDecentralizedWrhs: String(1);
   status: String(2) @title : 'Status';
   statusDescription: String(20) @title : 'Status description';
+  sendToWMSDate: Date;
+  shipmentConfirmedDate: Date;
 }
