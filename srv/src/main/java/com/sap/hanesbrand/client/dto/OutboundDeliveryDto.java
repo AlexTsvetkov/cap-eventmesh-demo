@@ -2,8 +2,14 @@ package com.sap.hanesbrand.client.dto;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.sap.hanesbrand.util.CustomDeserializer;
+import com.sap.hanesbrand.util.DurationToLocalTimeDeserializer;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Data
 @NoArgsConstructor
@@ -28,7 +34,8 @@ public class OutboundDeliveryDto {
         private String receivinglocationtimezone;
 
         @JsonProperty("BillingDocumentDate")
-        private String billingDocumentDate;
+        @JsonDeserialize(using = CustomDeserializer.class)
+        private LocalDateTime billingDocumentDate;
 
         @JsonProperty("BillOfLading")
         private String billOfLading;
@@ -37,16 +44,19 @@ public class OutboundDeliveryDto {
         private boolean completeDeliveryIsDefined;
 
         @JsonProperty("ConfirmationTime")
-        private String confirmationTime;
+        @JsonDeserialize(using = DurationToLocalTimeDeserializer.class)
+        private LocalTime confirmationTime;
 
         @JsonProperty("CreatedByUser")
         private String createdByUser;
 
         @JsonProperty("CreationDate")
-        private String creationDate;
+        @JsonDeserialize(using = CustomDeserializer.class)
+        private LocalDateTime creationDate;
 
         @JsonProperty("CreationTime")
-        private String creationTime;
+        @JsonDeserialize(using = DurationToLocalTimeDeserializer.class)
+        private LocalTime creationTime;
 
         @JsonProperty("CustomerGroup")
         private String customerGroup;
@@ -55,7 +65,8 @@ public class OutboundDeliveryDto {
         private String deliveryBlockReason;
 
         @JsonProperty("DeliveryDate")
-        private String deliveryDate;
+        @JsonDeserialize(using = CustomDeserializer.class)
+        private LocalDateTime deliveryDate;
 
         @JsonProperty("DeliveryDocumentBySupplier")
         private String deliveryDocumentBySupplier;
@@ -70,7 +81,8 @@ public class OutboundDeliveryDto {
         private String deliveryPriority;
 
         @JsonProperty("DeliveryTime")
-        private String deliveryTime;
+        @JsonDeserialize(using = DurationToLocalTimeDeserializer.class)
+        private LocalTime deliveryTime;
 
         @JsonProperty("DeliveryVersion")
         private String deliveryVersion;

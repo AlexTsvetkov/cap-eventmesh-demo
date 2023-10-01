@@ -26,7 +26,7 @@ entity OutboundDelivery {
   depreciationPercentage: Decimal(5, 2);
   distrStatusByDecentralizedWrhs: String(1);
   status: String(2) @title : 'Status';
-  statusDescription: String(20) @title : 'Status description' @CodeList : { StandardCode : status, };
-  sendToWMSDate: Date @title : 'Send to WMS';
-  shipmentConfirmedDate: Date @title : 'Shipment confirm date' @display;
+  statusDescription: String(20) @title : 'Status description';
+  sendToWMSDate: Date;
+  shipmentConfirmedDate: Date;
 }

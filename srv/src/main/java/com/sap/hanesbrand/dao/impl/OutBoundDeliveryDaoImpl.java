@@ -13,6 +13,7 @@ import com.sap.hanesbrand.dao.OutboundDeliveryDao;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
+import java.time.LocalDate;
 
 @Slf4j
 @Repository
@@ -36,17 +37,20 @@ public class OutBoundDeliveryDaoImpl implements OutboundDeliveryDao {
     public void saveOutboundDelivery(OutboundDelivery outboundDeliveryEvent) {
         log.info("OutBoundDeliveryDaoImpl: saveOutboundDelivery {} ", outboundDeliveryEvent);
         outboundDeliveryEvent.setStatus(PKMS);
+        outboundDeliveryEvent.setSendToWMSDate(LocalDate.now());
         outboundDeliveryEvent.setStatusDescription(PKMS_DESCRIPTION);
         CqnUpsert upsert = Upsert.into(SOURCE_TYPE).entry(outboundDeliveryEvent);
         persistenceService.run(upsert);
 
     }
 
-    public void updateStatus(String deliveryId, String status, String statusDescription) {
+    @Override
+    public void updateConfirmShipmentStatus(String deliveryId, String status, String statusDescription) {
         log.info("OutBoundDeliveryDaoImpl: updateStatus for {}", deliveryId);
         OutboundDelivery outboundDelivery = OutboundDelivery.create();
         outboundDelivery.setStatus(status);
         outboundDelivery.setStatusDescription(statusDescription);
+        outboundDelivery.setShipmentConfirmedDate(LocalDate.now());
         CqnUpdate update = Update.entity(SOURCE_TYPE).data(outboundDelivery).byId(deliveryId);
         persistenceService.run(update);
     }
