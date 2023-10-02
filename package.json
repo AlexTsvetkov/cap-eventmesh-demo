@@ -6,6 +6,7 @@
         "@sap/cds-dk": "^7"
     },
     "scripts": {
+        "dev": "cds watch --in-memory",
         "undeploy": "cf undeploy cap-eventmesh-demo --delete-services --delete-service-keys --delete-service-brokers",
         "build": "rimraf resources mta_archives && mbt build --mtar archive",
         "deploy": "cf deploy mta_archives/archive.mtar --retries 1",
