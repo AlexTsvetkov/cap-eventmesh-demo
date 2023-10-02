@@ -36,15 +36,15 @@ public class OutboundDeliveryHandler implements EventHandler {
         LocalDate date5DaysAgo = today.minusDays(5);
 
         if (sendToWMSDate.isBefore(date1DayAgo)) {
-            outboundDelivery.setCriticality("1");
+            outboundDelivery.setCriticalityCode(1);
         }
         if (sendToWMSDate.isBefore(date3DaysAgo.minusDays(3))) {
-            outboundDelivery.setCriticality("3");
+            outboundDelivery.setCriticalityCode(3);
         }
         if (sendToWMSDate.isBefore(date5DaysAgo.minusDays(5))) {
-            outboundDelivery.setCriticality("5");
+            outboundDelivery.setCriticalityCode(5);
         }
-        outboundDelivery.setCriticality("0");
+        outboundDelivery.setCriticalityCode(0);
     }
 
 }
