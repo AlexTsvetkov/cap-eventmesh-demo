@@ -29,4 +29,5 @@ entity OutboundDelivery {
   statusDescription: String(20) @title : 'Status description';
   sendToWMSDate: Date;
   shipmentConfirmedDate: Date;
+  criticality: String;
 }

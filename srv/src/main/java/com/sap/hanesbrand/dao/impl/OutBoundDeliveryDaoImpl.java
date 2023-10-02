@@ -38,6 +38,7 @@ public class OutBoundDeliveryDaoImpl implements OutboundDeliveryDao {
         log.info("OutBoundDeliveryDaoImpl: saveOutboundDelivery {} ", outboundDeliveryEvent);
         outboundDeliveryEvent.setStatus(PKMS);
         outboundDeliveryEvent.setSendToWMSDate(LocalDate.now());
+        outboundDeliveryEvent.setCriticality("1");
         outboundDeliveryEvent.setStatusDescription(PKMS_DESCRIPTION);
         CqnUpsert upsert = Upsert.into(SOURCE_TYPE).entry(outboundDeliveryEvent);
         persistenceService.run(upsert);
