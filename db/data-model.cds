@@ -1,6 +1,4 @@
-namespace com.sap.hanesbrand;
-
-using {managed, extensible} from '@sap/cds/common';
+namespace cap.eventmesh.demo;
 
 entity OutboundDelivery {
   key DeliveryDocument: String(10) @title : 'Delivery document';
