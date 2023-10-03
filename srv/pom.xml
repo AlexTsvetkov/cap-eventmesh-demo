@@ -27,19 +27,19 @@
         <dependency>
             <groupId>com.sap.cds</groupId>
             <artifactId>cds-starter-spring-boot</artifactId>
-            <version>2.2.0</version>
+            <version>${cds.services.version}</version>
         </dependency>
         <dependency>
             <groupId>com.sap.cds</groupId>
             <artifactId>cds-adapter-odata-v4</artifactId>
-            <version>2.2.0</version>
+            <version>${cds.services.version}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.sap.cds</groupId>
             <artifactId>cds-starter-cloudfoundry</artifactId>
             <scope>runtime</scope>
-            <version>2.2.0</version>
+            <version>${cds.services.version}</version>
         </dependency>
 
         <dependency>
@@ -73,6 +73,11 @@
             <version>${lombok.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <version>3.1.1</version>
+        </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
