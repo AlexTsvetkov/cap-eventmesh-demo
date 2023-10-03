@@ -44,8 +44,8 @@
                     },
                     "semanticObject": "deliveries",
                     "action": "display",
-                    "title": "{{flpTitle}}",
-                    "subTitle": "{{flpSubtitle}}",
+                    "title": "Outbount delivery tracking",
+                    "subTitle": "Outbount delivery",
                     "icon": ""
                 }
             }
