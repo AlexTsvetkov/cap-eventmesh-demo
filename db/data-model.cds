@@ -25,9 +25,14 @@ entity OutboundDelivery {
   deliveryVersion: String(4);
   depreciationPercentage: Decimal(5, 2);
   distrStatusByDecentralizedWrhs: String(1);
-  status: String(2) @title : 'Status';
-  statusDescription: String(20) @title : 'Status description';
+  status: String(2) @title : 'Status code';
+  statusDescription: String(20) @title : 'Status';
   sendToWMSDate: Date;
   shipmentConfirmedDate: Date;
   criticality_code: Integer;
+}
+
+entity Status {
+  KEY ID: Integer;
+  status: String; 
 }
