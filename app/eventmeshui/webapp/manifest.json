@@ -132,16 +132,7 @@
                                 "@com.sap.vocabularies.UI.v1.SelectionFields": {
                                     "useSemanticDateRange": true
                                 },
-                                "@com.sap.vocabularies.UI.v1.LineItem": {
-                                    "actions": {
-                                        "ListReportExtation": {
-                                            "requiresSelection": false,
-                                            "text": "{i18n>press}",
-                                            "press": "eventmeshui.ext.listReportExtation.ListReportExtation.customAction",
-                                            "visible": true,
-                                            "enabled": false
-                                        }
-                                    },
+                                "@com.sap.vocabularies.UI.v1.LineItem": {                                   
                                     "tableSettings": {
                                         "quickVariantSelection": {
                                             "hideTableTitle": false
