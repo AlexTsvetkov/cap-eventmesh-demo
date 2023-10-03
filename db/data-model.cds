@@ -25,8 +25,8 @@ entity OutboundDelivery {
   distrStatusByDecentralizedWrhs: String(1);
   status: String(2) @title : 'Status code';
   statusDescription: String(20) @title : 'Status';
-  sendToWMSDate: Date;
-  shipmentConfirmedDate: Date @title : 'Shipment confirmed date';
+  sendToWMSDate: Date @title : 'Sent to WMS date';
+  shipmentConfirmedDate: Date @title : 'Shipment confirmation date';
   criticality_code: Integer;
 }
 

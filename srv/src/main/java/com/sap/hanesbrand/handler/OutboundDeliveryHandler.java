@@ -39,13 +39,13 @@ public class OutboundDeliveryHandler implements EventHandler {
         LocalDate today = LocalDate.now();
         long daysDifference = ChronoUnit.DAYS.between(sendToWMSDate, today);
         if (daysDifference == 1) {
-            outboundDelivery.setCriticalityCode(1);
+            outboundDelivery.setCriticalityCode(3);
         }
         else if(daysDifference >= 1 && daysDifference <= 3) {
-           outboundDelivery.setCriticalityCode(3);
+           outboundDelivery.setCriticalityCode(2);
         }
         else if(daysDifference < 5){
-            outboundDelivery.setCriticalityCode(5);
+            outboundDelivery.setCriticalityCode(1);
         }
     }
 }
