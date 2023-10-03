@@ -28,7 +28,7 @@ entity OutboundDelivery {
   status: String(2) @title : 'Status code';
   statusDescription: String(20) @title : 'Status';
   sendToWMSDate: Date;
-  shipmentConfirmedDate: Date;
+  shipmentConfirmedDate: Date @title : 'Shipment confirmed date';
   criticality_code: Integer;
 }
 

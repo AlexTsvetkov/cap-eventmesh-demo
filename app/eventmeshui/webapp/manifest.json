@@ -44,8 +44,8 @@
                     },
                     "semanticObject": "deliveries",
                     "action": "display",
-                    "title": "Outbount delivery tracking",
-                    "subTitle": "Outbount delivery",
+                    "title": "Outbound delivery tracking",
+                    "subTitle": "",
                     "icon": ""
                 }
             }
