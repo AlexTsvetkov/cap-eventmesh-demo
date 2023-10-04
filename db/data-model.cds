@@ -1,32 +1,32 @@
 namespace cap.eventmesh.demo;
 
 entity OutboundDelivery {
-  key DeliveryDocument: String(10) @title : 'Delivery document';
-  actualDeliveryRoute: String(6) @title : 'Delivery route';
+  key DeliveryDocument: String(10);
+  actualDeliveryRoute: String(6);
   shippinglocationtimezone: String(6);
   receivinglocationtimezone: String(6);
   billingDocumentDate: Date;
   billOfLading: String(35);
-  completeDeliveryIsDefined: Boolean @title : 'Complete delivery';
-  confirmationTime: Time @title : 'Conformation time';
-  createdByUser: String(12) @title : 'Created by';
-  creationDate: Date @title : 'Creation date';
+  completeDeliveryIsDefined: Boolean;
+  confirmationTime: Time;
+  createdByUser: String(12);
+  creationDate: Date;
   creationTime: Time;
-  customerGroup: String(2) @title : 'Customer group';
-  deliveryBlockReason: String(2) @title : 'Block reason';
-  deliveryDate: Date @title : 'Delivery date';
-  deliveryDocumentBySupplier: String(35) @title : 'Delivery document by supplier';
-  deliveryDocumentType: String(4) @title : 'Delivery document type';
-  deliveryIsInPlant: Boolean @title : 'Is plant';
+  customerGroup: String(2);
+  deliveryBlockReason: String(2);
+  deliveryDate: Date;
+  deliveryDocumentBySupplier: String(35);
+  deliveryDocumentType: String(4);
+  deliveryIsInPlant: Boolean;
   deliveryPriority: String(2);
   deliveryTime: Time;
   deliveryVersion: String(4);
   depreciationPercentage: Decimal(5, 2);
   distrStatusByDecentralizedWrhs: String(1);
-  status: String(2) @title : 'Status code';
-  statusDescription: String(20) @title : 'Status';
-  sendToWMSDate: Date @title : 'Sent to WMS date';
-  shipmentConfirmedDate: Date @title : 'Shipment confirmation date';
+  status: String(2);
+  statusDescription: String(20);
+  sendToWMSDate: Date;
+  shipmentConfirmedDate: Date;
   criticality_code: Integer;
 }
 
