@@ -1,23 +1,6 @@
 using {OutboundDeliveryService} from '../../srv/data-service';
 
-annotate OutboundDeliveryService.OutboundDelivery with {
-    statusDescription @(Common : {
-        ValueListWithFixedValues: true,
-        Label : 'Status',
-        ValueList : {
-            $Type : 'Common.ValueListType',
-            CollectionPath : 'Status',
-            SearchSupported: true,
-            Parameters: [
-                {
-                    $Type : 'Common.ValueListParameterOut',
-                    LocalDataProperty : statusDescription,
-                    ValueListProperty : 'status',
-                },
-            ]
-        },
-    })
-};
+
 
 annotate OutboundDeliveryService.OutboundDelivery with {
     criticality_code @UI : {
@@ -109,19 +92,4 @@ annotate OutboundDeliveryService.OutboundDelivery with @UI: {
     ],
 };
 
-annotate OutboundDeliveryService.OutboundDelivery with {
-    DeliveryDocument @Common : { 
-        Label : 'Delivery document',
-     }
-};
-annotate OutboundDeliveryService.OutboundDelivery with {
-    sendToWMSDate @Common : { 
-        Label : 'Sent to WMS date',
-     }
-};
-annotate OutboundDeliveryService.OutboundDelivery with {
-    shipmentConfirmedDate @Common : { 
-        Label : 'Shipment confirmation date',
-     }
-};
 
