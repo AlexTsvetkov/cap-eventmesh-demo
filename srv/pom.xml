@@ -3,14 +3,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.sap.hanesbrand</groupId>
+    <groupId>cap-eventmesh-demo</groupId>
     <artifactId>cap-eventmesh-demo</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>cap-eventmesh</name>
 
     <parent>
         <artifactId>cap-eventmesh-demo-parent</artifactId>
-        <groupId>com.sap.hanesbrand</groupId>
+        <groupId>cap-eventmesh-demo-parent</groupId>
         <version>${revision}</version>
     </parent>
 
@@ -41,7 +41,6 @@
             <scope>runtime</scope>
             <version>2.2.0</version>
         </dependency>
-
 
         <dependency>
             <groupId>com.sap.cloud.servicesdk.xbem</groupId>
@@ -90,7 +89,12 @@
             <artifactId>xsuaa-spring-boot-starter</artifactId>
             <version>${sap.cloud.security.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/com.sap.cds/cds-feature-xsuaa -->
+        <dependency>
+            <groupId>com.sap.cds</groupId>
+            <artifactId>cds-feature-cloudfoundry</artifactId>
+            <scope>runtime</scope>
+            <version>${cds.services.version}</version>
+        </dependency>
         <dependency>
             <groupId>com.sap.cds</groupId>
             <artifactId>cds-feature-xsuaa</artifactId>

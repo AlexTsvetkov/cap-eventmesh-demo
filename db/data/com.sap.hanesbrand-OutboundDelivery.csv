@@ -1,4 +1,0 @@
-DeliveryDocument,actualDeliveryRoute,shippinglocationtimezone,receivinglocationtimezone,billingDocumentDate,billOfLading,completeDeliveryIsDefined,confirmationTime,createdByUser,creationDate,creationTime,customerGroup,deliveryBlockReason,deliveryDate,deliveryDocumentBySupplier,deliveryDocumentType,deliveryIsInPlant,deliveryPriority,deliveryTime,deliveryVersion,depreciationPercentage,distrStatusByDecentralizedWrhs,status,statusDescription,sendToWMSDate,shipmentConfirmedDate,criticality_code
-80000001,,UTC+3,UTC+3,2022-03-22,,false,00:00,OLGA,2022-03-22,11:30:48,,,2022-03-21,,NLCC,false,00,21:00,0002,0,,2,Shipment Confirmed,2023-09-01,2023-10-01,1
-80000012,,UTC+3,UTC+3,2022-03-23,,false,00:00,PHEDORINCHIK,2022-03-23,13:45:10,,,2022-03-29,,NLCC,false,00,21:00,0003,0,,2,Shipment Confirmed,2023-10-01,2023-10-01,2
-80000013,,UTC+3,UTC+3,2022-03-23,,false,00:00,PHEDORINCHIK,2022-03-23,13:45:10,,,2022-03-29,,NLCC,false,00,21:00,0003,0,,2,Sent to WMS,2023-10-01,2023-10-01,3

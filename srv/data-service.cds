@@ -1,4 +1,4 @@
-using {com.sap.hanesbrand as db} from '../db/data-model';
+using {cap.eventmesh.demo as db} from '../db/data-model';
 
 // @path: '/odata/v4/OutboundDeliveryService'
 service OutboundDeliveryService {
@@ -10,10 +10,3 @@ service OutboundDeliveryService {
 
 }
 
-annotate OutboundDeliveryService.OutboundDelivery with @Capabilities: {FilterRestrictions: {
-   $Type                       : 'Capabilities.FilterRestrictionsType',
-   FilterExpressionRestrictions: [{
-      Property          : sendToWMSDate,
-      AllowedExpressions: 'SingleValue'
-   }]
-}, };

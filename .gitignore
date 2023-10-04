@@ -40,3 +40,12 @@ db/src/gen
 db/node_modules/
 
 node_modules/
+
+# added by cds
+.cdsrc-private.json
+
+# auto generated wildcard
+.env
+
+# Data
+db/data/cap.eventmesh.demo-OutboundDelivery.csv

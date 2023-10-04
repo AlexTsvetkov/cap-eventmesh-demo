@@ -23,7 +23,7 @@ modules:
       CDS_MULTITENANCY_APPUI_URL: ~{url}
   - name: cap-eventmesh-demo-auth
   - name: cap-eventmesh-demo-db
-  - name: hanesbrand-em
+  # - name: hanesbrand-em
   - name: hanesbrand-destination-service
   - name: hanesbrand-connectivity-service
   provides:
@@ -177,12 +177,12 @@ resources:
 ##############################################################################
 ###########    hanesbrand-em                                    ##############
 ##############################################################################
-- name: hanesbrand-em
-  type: org.cloudfoundry.managed-service
-  parameters:
-    path: ./em.json
-    service: enterprise-messaging
-    service-plan: default
+# - name: hanesbrand-em
+#   type: org.cloudfoundry.managed-service
+#   parameters:
+#     path: ./em.json
+#     service: enterprise-messaging
+#     service-plan: default
 ##############################################################################
 ###########   hanesbrand-destination-service                    ##############
 ##############################################################################
