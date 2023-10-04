@@ -24,9 +24,12 @@ import static com.sap.hanesbrand.client.dto.OutboundDeliveryEventDto.OUTBOUND_DE
 @Component
 public class DDMessageListener implements MessageListener {
 
-    private final S4Service s4Service;
+    private final OutboundS4Service outboundS4Service;
     private final OutboundDeliveryMapper mapper;
     private final OutboundDeliveryDao outboundDeliveryRepository;
+
+    private static final String SHIPMENT_CONFIRM = "2";
+    private static final String STATUS_DESCRIPTION = "Shipment Confirmed";
 
     @Override
     public void onMessage(Message message) {
@@ -46,11 +49,19 @@ public class DDMessageListener implements MessageListener {
 
             OutboundDeliveryEventDto event = objectMapper.readValue(messageText, OutboundDeliveryEventDto.class);
             String deliveryDocument = event.getData().get(OUTBOUND_DELIVERY);
-            log.info("DDMessageListener: --Event received: " + event);
-            OutboundDeliveryDto outboundDeliveryDto = s4Service.getOutboundDeliveryById(deliveryDocument);
-            log.info("DDMessageListener: outboundDeliveryDto =" + outboundDeliveryDto.toString());
-            OutboundDelivery outboundDelivery = mapper.s4DocumentToOutboundDelivery(outboundDeliveryDto.getDocument());
-            outboundDeliveryRepository.saveOutboundDelivery(outboundDelivery);
+            String eventType = event.getType();
+            if(eventType.contains("ConfirmShipment")){
+                log.info("ConfirmShipment");
+                OutboundDelivery outboundDelivery = outboundDeliveryRepository.selectOutboundDeliveryById(deliveryDocument);
+                outboundDeliveryRepository.updateConfirmShipmentStatus(outboundDelivery.getDeliveryDocument(), SHIPMENT_CONFIRM, STATUS_DESCRIPTION);
+            }
+            if(eventType.contains("OutboundDelivery")){
+                log.info("OutboundDelivery");
+                OutboundDeliveryDto outboundDeliveryDto = outboundS4Service.getOutboundDeliveryById(deliveryDocument);
+                log.info("DDMessageListener: outboundDeliveryDto =" + outboundDeliveryDto.toString());
+                OutboundDelivery outboundDelivery = mapper.s4DocumentToOutboundDelivery(outboundDeliveryDto.getDocument());
+                outboundDeliveryRepository.saveOutboundDelivery(outboundDelivery);
+            }
         } catch (Exception e) {
             log.error("DDMessageListener: --Cannot receive event: " + e.getMessage());
         }

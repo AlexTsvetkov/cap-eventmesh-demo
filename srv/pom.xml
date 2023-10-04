@@ -3,14 +3,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.sap.hanesbrand</groupId>
+    <groupId>cap-eventmesh-demo</groupId>
     <artifactId>cap-eventmesh-demo</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>cap-eventmesh</name>
 
     <parent>
         <artifactId>cap-eventmesh-demo-parent</artifactId>
-        <groupId>com.sap.hanesbrand</groupId>
+        <groupId>cap-eventmesh-demo-parent</groupId>
         <version>${revision}</version>
     </parent>
 
@@ -27,21 +27,20 @@
         <dependency>
             <groupId>com.sap.cds</groupId>
             <artifactId>cds-starter-spring-boot</artifactId>
-            <version>2.2.0</version>
+            <version>${cds.services.version}</version>
         </dependency>
         <dependency>
             <groupId>com.sap.cds</groupId>
             <artifactId>cds-adapter-odata-v4</artifactId>
-            <version>2.2.0</version>
+            <version>${cds.services.version}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.sap.cds</groupId>
             <artifactId>cds-starter-cloudfoundry</artifactId>
             <scope>runtime</scope>
-            <version>2.2.0</version>
+            <version>${cds.services.version}</version>
         </dependency>
-
 
         <dependency>
             <groupId>com.sap.cloud.servicesdk.xbem</groupId>
@@ -75,6 +74,11 @@
         </dependency>
 
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <version>3.1.1</version>
+        </dependency>
+        <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>${apache.httpclient.version}</version>
@@ -90,7 +94,12 @@
             <artifactId>xsuaa-spring-boot-starter</artifactId>
             <version>${sap.cloud.security.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/com.sap.cds/cds-feature-xsuaa -->
+        <dependency>
+            <groupId>com.sap.cds</groupId>
+            <artifactId>cds-feature-cloudfoundry</artifactId>
+            <scope>runtime</scope>
+            <version>${cds.services.version}</version>
+        </dependency>
         <dependency>
             <groupId>com.sap.cds</groupId>
             <artifactId>cds-feature-xsuaa</artifactId>

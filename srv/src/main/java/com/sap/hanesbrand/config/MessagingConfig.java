@@ -1,11 +1,14 @@
 package com.sap.hanesbrand.config;
 
+import com.sap.cloud.security.xsuaa.token.SpringSecurityContext;
 import com.sap.cloud.servicesdk.xbem.core.MessagingService;
 import com.sap.cloud.servicesdk.xbem.core.MessagingServiceFactory;
 import com.sap.cloud.servicesdk.xbem.core.exception.MessagingException;
 import com.sap.cloud.servicesdk.xbem.core.impl.MessagingServiceFactoryCreator;
 import com.sap.cloud.servicesdk.xbem.extension.sapcp.jms.MessagingServiceJmsConnectionFactory;
 import com.sap.cloud.servicesdk.xbem.extension.sapcp.jms.MessagingServiceJmsSettings;
+import com.sap.hanesbrand.config.vcap.EMVcapCredentials;
+import com.sap.hanesbrand.config.vcap.EMVcapReader;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,29 +17,22 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class MessagingConfig {
 
-    @Value("${client.id}")
-    private String clientId;
+    private final String PROTOCOL_AMQP = "amqp10ws";
+    private final EMVcapReader emVcapReader;
 
-    @Value("${client.secret}")
-    private String clientSecret;
-
-    @Value("${service.url}")
-    private String serviceUrl;
-
-    @Value("${token.url}")
-    private String tokenUrl;
-
-    private final String PROTOCOL = "amqp10ws";
+    public MessagingConfig(EMVcapReader emVcapReader) {
+        this.emVcapReader = emVcapReader;
+    }
 
     @Bean
     public MessagingService messagingService() {
+        EMVcapCredentials.Oa2 oauthCredentialsNode = emVcapReader.getAmqpMessagingServiceCredentials();
         MessagingService messagingService = new MessagingService();
-        messagingService.setClientId(clientId);
-        messagingService.setClientSecret(clientSecret);
-        messagingService.setOAuthTokenEndpoint(tokenUrl);
-        messagingService.setProtocol(PROTOCOL);
-        messagingService.setServiceUrl(serviceUrl);
-
+        messagingService.setClientId(oauthCredentialsNode.getClientId());
+        messagingService.setClientSecret(oauthCredentialsNode.getClientSecret());
+        messagingService.setOAuthTokenEndpoint(oauthCredentialsNode.getTokenEndpoint());
+        messagingService.setProtocol(PROTOCOL_AMQP);
+        messagingService.setServiceUrl(emVcapReader.getAmqpUri());
         return messagingService;
     }
 
