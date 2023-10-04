@@ -9,7 +9,7 @@ import com.sap.hanesbrand.client.dto.*;
 @RequiredArgsConstructor
 @Slf4j
 @Service
-public class OutboundS4Service {
+public class OutboundDeliveryS4Service {
 
     private static final String FORMAT = "?$format=json";
     private static final String GET_HEADER_BY_ID = "/A_OutbDeliveryHeader('%s')";

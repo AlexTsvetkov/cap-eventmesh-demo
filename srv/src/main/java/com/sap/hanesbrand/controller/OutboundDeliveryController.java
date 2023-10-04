@@ -23,7 +23,6 @@ public class OutboundDeliveryController {
     private static final String STATUS_DESCRIPTION = "Shipment Confirmed";
 
 
-    //Not needed at all, it's for local testing dto/mapper
     @PostMapping("/webhook/save-document")
     public void saveDocument(@RequestBody OutboundDeliveryDto outboundDeliveryDto) {
         OutboundDeliveryDto.Document document = outboundDeliveryDto.getDocument();

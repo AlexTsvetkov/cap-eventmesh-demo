@@ -45,6 +45,7 @@ public abstract class HttpDestinationClient {
             log.error(CONNECTION_ABORTED, e);
         } catch (Exception e) {
             //ignore
+            //TODO Catch and log exception
         }
         return EMPTY;
     }

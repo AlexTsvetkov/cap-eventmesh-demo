@@ -46,12 +46,12 @@ public class EMVcapReaderImpl implements EMVcapReader {
 
     private EMVcapCredentials.Messaging getAmqpSection() {
         Optional<EMVcapCredentials.Messaging> amqpSectionOptional = getMessagingByProtocol(PROTOCOL_AMQP);
-        return amqpSectionOptional.orElseThrow(() -> new VcapReaderException("Unable to find amqp protocol info."));
+        return amqpSectionOptional.orElseThrow(() -> new VcapReaderException("Unable to read amqp protocol from environment variable (VCAP_SERVICES)"));
     }
 
     private EMVcapCredentials.Messaging getHttpSection() {
         Optional<EMVcapCredentials.Messaging> httpSectionOptional = getMessagingByProtocol(PROTOCOL_HTTP);
-        return httpSectionOptional.orElseThrow(() -> new VcapReaderException("Unable to find http protocol info."));
+        return httpSectionOptional.orElseThrow(() -> new VcapReaderException("Unable to read http protocol from environment variable (VCAP_SERVICES)"));
     }
 
     private Optional<EMVcapCredentials.Messaging> getMessagingByProtocol(String protocolType) {

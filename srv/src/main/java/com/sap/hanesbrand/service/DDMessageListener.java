@@ -24,7 +24,7 @@ import static com.sap.hanesbrand.client.dto.OutboundDeliveryEventDto.OUTBOUND_DE
 @Component
 public class DDMessageListener implements MessageListener {
 
-    private final OutboundS4Service outboundS4Service;
+    private final OutboundDeliveryS4Service outboundDeliveryS4Service;
     private final OutboundDeliveryMapper mapper;
     private final OutboundDeliveryDao outboundDeliveryRepository;
 
@@ -57,7 +57,7 @@ public class DDMessageListener implements MessageListener {
             }
             if(eventType.contains("OutboundDelivery")){
                 log.info("OutboundDelivery");
-                OutboundDeliveryDto outboundDeliveryDto = outboundS4Service.getOutboundDeliveryById(deliveryDocument);
+                OutboundDeliveryDto outboundDeliveryDto = outboundDeliveryS4Service.getOutboundDeliveryById(deliveryDocument);
                 log.info("DDMessageListener: outboundDeliveryDto =" + outboundDeliveryDto.toString());
                 OutboundDelivery outboundDelivery = mapper.s4DocumentToOutboundDelivery(outboundDeliveryDto.getDocument());
                 outboundDeliveryRepository.saveOutboundDelivery(outboundDelivery);

@@ -21,14 +21,14 @@ public class SAPEventMeshMessagingService {
     private final String QUEUE_NAME = "com/sap/hanesbrand/s4";
 
     private MessagingServiceJmsConnectionFactory connectionFactory;
-    private OutboundS4Service outboundS4Service;
+    private OutboundDeliveryS4Service outboundDeliveryS4Service;
     private OutboundDeliveryDao outboundDeliveryDao;
     private OutboundDeliveryMapper mapper;
 
-    public SAPEventMeshMessagingService(MessagingServiceJmsConnectionFactory connectionFactory, OutboundS4Service outboundS4Service,
+    public SAPEventMeshMessagingService(MessagingServiceJmsConnectionFactory connectionFactory, OutboundDeliveryS4Service outboundDeliveryS4Service,
                                         OutboundDeliveryDao outboundDeliveryDao, OutboundDeliveryMapper mapper) {
         this.connectionFactory = connectionFactory;
-        this.outboundS4Service = outboundS4Service;
+        this.outboundDeliveryS4Service = outboundDeliveryS4Service;
         this.outboundDeliveryDao = outboundDeliveryDao;
         this.mapper = mapper;
     }
@@ -38,7 +38,7 @@ public class SAPEventMeshMessagingService {
         JMSContext context = connectionFactory.createContext();
         Queue queue = context.createQueue(QUEUE_PREFIX + QUEUE_NAME);
         JMSConsumer consumer = context.createConsumer(queue);
-        consumer.setMessageListener(new DDMessageListener(outboundS4Service, mapper, outboundDeliveryDao));
+        consumer.setMessageListener(new DDMessageListener(outboundDeliveryS4Service, mapper, outboundDeliveryDao));
     }
 
 
