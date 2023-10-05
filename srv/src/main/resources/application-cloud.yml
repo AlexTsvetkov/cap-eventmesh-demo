@@ -1,0 +1,11 @@
+spring:
+  config:
+    activate:
+      on-profile: cloud
+  destination:
+    name:
+      s4Outbound: "OUTBOUND_DELIVERY_SRV"
+
+logging:
+  level:
+    ROOT: INFO
