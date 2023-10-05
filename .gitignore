@@ -46,6 +46,3 @@ node_modules/
 
 # auto generated wildcard
 .env
-
-# Data
-db/data/cap.eventmesh.demo-OutboundDelivery.csv

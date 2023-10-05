@@ -36,7 +36,6 @@ public abstract class HttpDestinationClient {
         try {
             HttpDestination httpDestination = getDestination(destinationName()).asHttp()
                     .decorate(DefaultErpHttpDestination::new);
-
             HttpClient client = getHttpClient(httpDestination);
             String requestUrl = httpDestination.getUri() + path;
             log.info("HttpDestinationClient: GET response as a string: {} ", requestUrl);
@@ -44,7 +43,7 @@ public abstract class HttpDestinationClient {
         } catch (IOException e) {
             log.error(CONNECTION_ABORTED, e);
         } catch (Exception e) {
-            //ignore
+            log.error("HttpDestinationClient: failed getResponseAsString", e);
             //TODO Catch and log exception
         }
         return EMPTY;

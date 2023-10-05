@@ -6,15 +6,15 @@ spring:
     name:
       s4Outbound: "OUTBOUND_DELIVERY_SRV"
 
-#cds:
-#  remote.services:
-#    - name: OutboundDeliveryService
-#  messaging.services:
-#    hanesbrand-em:
-#      kind: enterprise-messaging
-#      subscribePrefix: '*'
-#      queue:
-#        name: "s4"
+cds:
+  services:
+    - name: OutboundDeliveryService
+  messaging.services:
+    - name: "hanesbrand-em"
+      kind: enterprise-messaging
+      queue:
+        name: "com/sap/hanesbrand/s4"
+        forceListening: true
 
 #  datasource:
 #    url: "jdbc:sqlite:/Users/adubok/IdeaProjects/cap-eventmesh-demo/db.sqlite"

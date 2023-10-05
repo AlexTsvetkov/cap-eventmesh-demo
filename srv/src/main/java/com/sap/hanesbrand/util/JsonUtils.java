@@ -14,9 +14,12 @@ import java.io.IOException;
 @Slf4j
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class JsonUtils {
+    public static ObjectMapper outboundDeliveryMapper = new ObjectMapper();
     private static final ObjectMapper DTO_MAPPER = new ObjectMapper();
 
     static {
+        outboundDeliveryMapper.registerModule(new JavaTimeModule());
+        outboundDeliveryMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         DTO_MAPPER.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         DTO_MAPPER.registerModule(new JavaTimeModule()).configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, true);
     }

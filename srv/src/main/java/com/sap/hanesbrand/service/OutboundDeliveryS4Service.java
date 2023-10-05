@@ -16,8 +16,8 @@ public class OutboundDeliveryS4Service {
 
     private final S4HttpDestinationClientBasicAuth clientBasicAuth;
 
-    public OutboundDeliveryDto getOutboundDeliveryById(String id){
+    public OutboundDeliveryDto getOutboundDeliveryById(String id) {
         String entityPath = String.format(GET_HEADER_BY_ID, id);
-            return clientBasicAuth.get(entityPath + FORMAT, OutboundDeliveryDto.class);
+        return clientBasicAuth.get(entityPath + FORMAT, OutboundDeliveryDto.class);
     }
 }

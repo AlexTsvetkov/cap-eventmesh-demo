@@ -2,8 +2,6 @@ package com.sap.hanesbrand.client.dto;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,8 +10,6 @@ import java.util.Map;
 @Data
 @NoArgsConstructor
 public class OutboundDeliveryEventDto {
-
-    public final static String OUTBOUND_DELIVERY = "OutboundDelivery";
 
     @JsonProperty("type")
     String type;

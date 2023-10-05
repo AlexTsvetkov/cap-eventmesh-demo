@@ -41,13 +41,18 @@
             <scope>runtime</scope>
             <version>${cds.services.version}</version>
         </dependency>
-
         <dependency>
-            <groupId>com.sap.cloud.servicesdk.xbem</groupId>
-            <artifactId>emjapi-extension-sap-cp-jms</artifactId>
-            <version>2.2.6</version>
+            <groupId>com.sap.cds</groupId>
+            <artifactId>cds-feature-message-queuing</artifactId>
+            <scope>runtime</scope>
+            <version>${cds.services.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.sap.cds</groupId>
+            <artifactId>cds-feature-enterprise-messaging</artifactId>
+            <scope>runtime</scope>
+            <version>${cds.services.version}</version>
+        </dependency>
         <dependency>
             <groupId>com.sap.cloud.sdk.s4hana</groupId>
             <artifactId>s4hana-connectivity</artifactId>

@@ -1,0 +1,31 @@
+spring:
+  config:
+    activate:
+      on-profile: default
+  destination:
+    name:
+      s4Outbound: "OUTBOUND_DELIVERY_SRV"
+
+cds:
+  services:
+    - name: OutboundDeliveryService
+  messaging.services:
+    - name: "hanesbrand-em"
+      kind: enterprise-messaging
+      queue:
+        name: "com/sap/hanesbrand/s4"
+        forceListening: true
+
+  datasource:
+    url: "jdbc:sqlite:/Users/adubok/IdeaProjects/cap-eventmesh-demo/db.sqlite"
+    #url: "jdbc:sqlite:file::memory:?cache=shared"
+    driver-class-name: org.sqlite.JDBC
+    hikari:
+      maximum-pool-size: 1
+  sql:
+    init:
+      mode: always
+
+logging:
+  level:
+    ROOT: INFO

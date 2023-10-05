@@ -3,6 +3,13 @@ ID: cap-eventmesh-demo
 description: A simple CAP project.
 version: 1.0.0
 
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npm install --production
+
+
 ##############################################################################
 #####################   MODULES                                 ##############
 ##############################################################################
@@ -233,8 +240,3 @@ parameters:
   deploy_mode: html5-repo
   enable-parallel-deployments: true
   target-domain: ${default-domain}
-build-parameters:
-  before-all:
-  - builder: custom
-    commands:
-    - npm install --production
