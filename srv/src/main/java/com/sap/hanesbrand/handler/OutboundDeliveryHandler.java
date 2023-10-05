@@ -23,6 +23,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Optional;
 
 import static com.sap.cds.ResultBuilder.selectedRows;
 
@@ -42,8 +43,15 @@ public class OutboundDeliveryHandler implements EventHandler {
 
     @After(event = {CqnService.EVENT_READ}, entity = OutboundDelivery_.CDS_NAME)
     public void afterOutboundCreated(CdsReadEventContext context, List<OutboundDelivery> outboundDeliveryList) {
-        log.info("OutboundDeliveryHandler: afterOutboundCreated: " + outboundDeliveryList);
-        outboundDeliveryList.forEach(outboundDelivery -> setCriticality(outboundDelivery, outboundDelivery.getSendToWMSDate()));
+        log.info("OutboundDeliveryHandler: afterOutboundCreated");
+        outboundDeliveryList.forEach(outboundDelivery -> {
+            if (outboundDelivery.getShipmentConfirmedDate() == null) {
+                setCriticality(outboundDelivery, outboundDelivery.getSendToWMSDate());
+            } else {
+                outboundDelivery.setCriticalityCode(3);
+            }
+        });
+
         Result r = selectedRows(outboundDeliveryList).inlineCount(context.getResult().inlineCount()).result();
         context.setResult(r);
     }
@@ -82,5 +90,8 @@ public class OutboundDeliveryHandler implements EventHandler {
         } else {
             outboundDelivery.setCriticalityCode(3);
         }
+    }
+    public void setDefaultCriticality(OutboundDelivery outboundDelivery){
+        outboundDelivery.setCriticalityCode(1);
     }
 }
