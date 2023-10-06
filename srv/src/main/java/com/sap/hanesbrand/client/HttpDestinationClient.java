@@ -44,7 +44,6 @@ public abstract class HttpDestinationClient {
             log.error(CONNECTION_ABORTED, e);
         } catch (Exception e) {
             log.error("HttpDestinationClient: failed getResponseAsString", e);
-            //TODO Catch and log exception
         }
         return EMPTY;
     }
