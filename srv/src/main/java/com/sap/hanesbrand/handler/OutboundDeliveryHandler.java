@@ -56,7 +56,7 @@ public class OutboundDeliveryHandler implements EventHandler {
         context.setResult(r);
     }
 
-    @On(service = "hanesbrand-em", event = "com/sap/hanesbrand/s4")
+    @On(service = "hanesbrand-em", event = "com/sap/hanesbrand/ce/sap/s4/beh/outbounddelivery/v1/OutboundDelivery/Created/v1")
     private void outboundEvent(TopicMessageEventContext outboundEventContext) {
         log.info("OutboundDeliveryEvent");
         try {
