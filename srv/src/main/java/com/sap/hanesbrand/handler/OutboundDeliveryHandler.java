@@ -40,6 +40,7 @@ public class OutboundDeliveryHandler implements EventHandler {
     public final static String OUTBOUND_DELIVERY = "OutboundDelivery";
     private static final String SHIPMENT_CONFIRM = "2";
     private static final String STATUS_DESCRIPTION = "Shipment Confirmed";
+    private static final String S4_TOPIC_NAME = "com/sap/hanesbrand/ce/sap/s4/beh/outbounddelivery/v1/OutboundDelivery/Created/v1";
 
     @After(event = {CqnService.EVENT_READ}, entity = OutboundDelivery_.CDS_NAME)
     public void afterOutboundCreated(CdsReadEventContext context, List<OutboundDelivery> outboundDeliveryList) {
@@ -56,7 +57,7 @@ public class OutboundDeliveryHandler implements EventHandler {
         context.setResult(r);
     }
 
-    @On(service = "hanesbrand-em", event = "com/sap/hanesbrand/ce/sap/s4/beh/outbounddelivery/v1/OutboundDelivery/Created/v1")
+    @On(service = "hanesbrand-em", event = S4_TOPIC_NAME)
     private void outboundEvent(TopicMessageEventContext outboundEventContext) {
         log.info("OutboundDeliveryEvent");
         try {
